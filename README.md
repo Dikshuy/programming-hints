@@ -1,14 +1,11 @@
 # Hints for C++
 ## This is a repo for hints of all the problems that I have solved on hacker-rank.
 
-1.
+1. 
 ### Factorial of a large number:
 Issue of the problem: Large factorials can't be stored even in case of long long int. So, the given below is a idea for solving such cases.
 
-initialize a matrix of a large size ,let's say, 1000;
-
-put its start value as 1 and one other parameter size as 1. Now, as you peform normal multplication update the values.
-
+Hint: Iinitialize a matrix of a large size ,let's say, 1000. Put its start value as 1 and one other parameter size as 1. Now, as you peform normal multplication update the values.
 **Implementation**:
 ```bash
 void extraLongFactorials(int n) {
@@ -32,3 +29,59 @@ void extraLongFactorials(int n) {
     for(int i = size-1; i>= 0; i--)cout << val[i];
 }
 ```
+
+2.
+### Queen's attack:
+Problem: Given the queen's position and the locations of all the obstacles, find and print the number of squares the queen can attack from her position at (r_q, c_q).
+
+Hint: Initialize the distances from the current position to the end of the chessboard in every direction to its actual distance. Then check along every direction and when any obstacle comes in front, set that distance as the value along that direction.
+**Implemenatation**:
+```bash
+int queensAttack(int n, int k, int r_q, int c_q, vector<vector<int>> obstacles) {
+
+queen_row = r_q
+queen_column = c_q
+
+top = n - queen_row
+bottom = queen_row - 1
+right = n - queen_column
+left = queen_column - 1
+
+top_left = min(n - queen_row, queen_column - 1)
+top_right = n - max(queen_column, queen_row)
+bottom_left = min(queen_row, queen_column) - 1
+bottom_right = min(queen_row - 1, n - queen_column)
+
+for a0 in xrange(k):
+    obstacle_row = obstacles[a0][0]
+    obstacle_column = obstacles[a0][1]
+
+    if obstacle_row == queen_row:
+        if obstacle_column > queen_column:
+            top = min(top, obstacle_column - queen_column - 1)
+        else:
+            bottom = min(bottom, queen_column - obstacle_column - 1)
+ 
+    elif obstacle_column == queen_column:
+        if obstacle_row > queen_row:
+            right = min(right, obstacle_row - queen_row - 1)
+        else:
+            left = min(left, queen_row - obstacle_row - 1)
+
+    elif abs(obstacle_column - queen_column) == abs(obstacle_row - queen_row):
+   
+        if obstacle_column > queen_column and obstacle_row > queen_row:
+            top_right = min(top_right, obstacle_column - queen_column - 1)
+      
+        elif obstacle_column > queen_column and obstacle_row < queen_row:
+            bottom_right = min(bottom_right, obstacle_column - queen_column - 1)
+        
+        elif obstacle_column < queen_column and obstacle_row > queen_row:
+            top_left = min(top_left, queen_column - obstacle_column - 1)
+       
+        elif obstacle_column < queen_column and obstacle_row < queen_row:
+            bottom_left = min(bottom_left, queen_column - obstacle_column - 1)
+    
+            
+print top + bottom + right + left + top_left + top_right + bottom_left + bottom_right 
+}
