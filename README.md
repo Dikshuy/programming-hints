@@ -162,3 +162,33 @@ int surfaceArea(vector<vector<int>> A) {
     return ans;
 }
 ```
+
+### Absolute Permutation
+Issue: Represents the smallest lexicographically smallest permutation of natural numbers, such that |pos[i]-i|=k.  [link](https://www.hackerrank.com/challenges/absolute-permutation/problem?isFullScreen=true)
+
+Hint: Distribute into k and swap between 2k.
+
+**Implementation**:
+```bash
+vector<int> absolutePermutation(int n, int k) {
+    vector<int> pos(n);
+    for(int i=0; i<n; i++){
+        pos[i]=i+1;
+    }
+    vector<int> permutation(n);
+    if(k!=0){
+        if(n%k!=0 || (n/k)%2!=0 || k>n/2){
+        return {-1};
+        }
+        for(int m=0; m<n; m=m+2*k){
+            for(int j=0;j<k;j++){
+                swap(pos[m+j], pos[m+j+k]);
+            }
+        }
+    }
+    permutation = pos;
+
+    return permutation;
+}
+```
+
