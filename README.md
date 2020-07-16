@@ -120,3 +120,45 @@ string organizingContainers(vector<vector<int>> container){
 
 }
 ```
+
+### 3D surface area:
+Issue of the problem: [link](https://www.hackerrank.com/challenges/3d-surface-area/problem?isFullScreen=true)
+
+Hint: The base of the Figure will always contribute to the total surface area of the figure. Now, to calculate the area contributed by the walls, we will take out the absolute difference between the height of two adjacent wall. The difference will be the contribution in the total surface area.
+
+**Implementation**
+```bash
+int contribution_height(int current, int previous) { 
+    return abs(current - previous); 
+}
+int surfaceArea(vector<vector<int>> A) {
+    int ans = 0; 
+    int N = A.size();
+    int M = A[0].size();
+     
+    for (int i = 0; i < N; i++) { 
+        for (int j = 0; j < M; j++) {
+            int up = 0; 
+            int left = 0; 
+  
+            if (i > 0) 
+                up = A[i - 1][j]; 
+  
+            if (j > 0) 
+                left = A[i][j - 1]; 
+   
+            ans += contribution_height(A[i][j], up)  
+                    + contribution_height(A[i][j], left); 
+ 
+            if (i == N - 1) 
+                ans += A[i][j]; 
+            if (j == M - 1) 
+                ans += A[i][j]; 
+        } 
+    } 
+  
+    // Adding the contribution by the base and top of the figure 
+    ans += N * M * 2; 
+    return ans;
+}
+```
