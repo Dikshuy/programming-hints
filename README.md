@@ -1,11 +1,10 @@
-# Hints for C++
-## This is a repo for hints of all the problems that I have solved on hacker-rank.
+## Hints for hacker-rank problems
 
-1. 
 ### Factorial of a large number:
 Issue of the problem: Large factorials can't be stored even in case of long long int. So, the given below is a idea for solving such cases.
 
 Hint: Iinitialize a matrix of a large size ,let's say, 1000. Put its start value as 1 and one other parameter size as 1. Now, as you peform normal multplication update the values.
+
 **Implementation**:
 ```bash
 void extraLongFactorials(int n) {
@@ -30,11 +29,11 @@ void extraLongFactorials(int n) {
 }
 ```
 
-2.
 ### Queen's attack:
 Problem: Given the queen's position and the locations of all the obstacles, find and print the number of squares the queen can attack from her position at (r_q, c_q).
 
 Hint: Initialize the distances from the current position to the end of the chessboard in every direction to its actual distance. Then check along every direction and when any obstacle comes in front, set that distance as the value along that direction.
+
 **Implemenatation**:
 ```bash
 int queensAttack(int n, int k, int r_q, int c_q, vector<vector<int>> obstacles) {
@@ -85,3 +84,39 @@ for a0 in xrange(k):
             
 print top + bottom + right + left + top_left + top_right + bottom_left + bottom_right 
 }
+```
+
+### Oraginizing Containers of balls:
+Issue of the problem: [link](https://www.hackerrank.com/challenges/organizing-containers-of-balls/problem?isFullScreen=false)
+
+Hint: 1. Make a vector of capacity of every box  2. Make a vector of all the balls  3. Sort both of them 
+
+Compare both the vectors. If same then possible else impossible.
+
+**Implementation**:
+```bash
+string organizingContainers(vector<vector<int>> container){
+    vector<int> capacity;
+    vector<int> balls;
+    for(unsigned int i=0; i<container.size(); i++){
+        int cols = 0;
+        int rows = 0;
+        for(unsigned int j=0; j<container.size(); j++){
+            cols += container[i][j];
+            rows += container[j][i];
+        }
+        balls.push_back(cols);
+        capacity.push_back(rows);
+    }   
+    sort(balls.begin(), balls.end());
+    sort(capacity.begin(), capacity.end());
+    
+    if(balls == capacity){
+        return "Possible";
+    }
+    else{
+        return "Impossible";
+    }
+
+}
+```
