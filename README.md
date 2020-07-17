@@ -1,5 +1,30 @@
 ## Hints for hacker-rank problems
 
+### Larry's array:
+Issue of the problem: Test whether array can be sorted by swaping three items at a time in order: ABC -> BCA -> CAB -> ABC. [Link](https://www.hackerrank.com/challenges/larrys-array/problem?isFullScreen=true)
+
+Hint: Check out the number of inversions. The given below implementation seems to be simple but there is an awesome logic behind this. Refer to these paper's for understanding the logic behind it. [Paper1](https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html) and [Paper2](http://kevingong.com/Math/SixteenPuzzle.html)
+
+**Implementation**:
+```bash
+string larrysArray(vector<int> A) {
+    int n=A.size();
+    int sum=0;
+    for(int i = 0; i < n; i++){
+        for(int j = i+1; j < n; j++){
+            if(A[j] < A[i]){
+                sum += 1;
+            } 
+        }
+    }
+    if(sum%2==0){
+        return "YES";
+    }
+    else{
+        return "NO";
+    }
+} 
+```
 ### Factorial of a large number:
 Issue of the problem: Large factorials can't be stored even in case of long long int. So, the given below is a idea for solving such cases.
 
