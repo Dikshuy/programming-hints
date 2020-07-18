@@ -217,3 +217,40 @@ vector<int> absolutePermutation(int n, int k) {
 }
 ```
 
+### Ordering the team
+Issue: Check whether the teams can be ranked on the basis of three parameters. [link](https://www.hackerrank.com/contests/pt-test-3/challenges/ordering-the-team/problem)
+
+Hint: Make a 2d vector and sort it. Then do comparisons in rows and change the bool if not possible.
+
+**Implementation**:
+```bash
+int n;
+    cin>>n;
+    vector<vector<int>> v(n);
+    for (int i=0;i<n;i++)
+    {
+        int a, b, c;
+        cin>>a>>b>>c;
+        v[i].push_back(a);
+        v[i].push_back(b);
+        v[i].push_back(c);
+    }
+    sort(v.begin(), v.end());
+  
+    bool ans = true;
+    for (int i=0;i<n-1;i++){    
+        int count = 0;
+        for (int j=0;j<3;j++){
+            if (v[i][j] < v[i+1][j])
+                count++;
+            else if (v[i][j] > v[i+1][j])
+                ans = false;
+        }
+        if (count == 0)
+            ans = false;
+    }
+    if (ans)
+        cout<<"Yes";
+    else
+        cout<<"No";
+```bash
