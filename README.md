@@ -25,6 +25,37 @@ string larrysArray(vector<int> A) {
     }
 } 
 ```
+### Minimum Loss:
+Issue of the problem: Time complexity issue in case of larger values. [link](https://www.hackerrank.com/challenges/minimum-loss/problem)
+
+Hint: Sort the array, and then check the difference of adjacent pairs, if its less than ur last min value, update it only if the index of those pairs are in same way in original array.
+
+**Implementation**:
+```bash
+    int n;
+    cin >> n;
+    vector<double> sorted(n);
+    map<double, int> arr;
+    for (int i = 0; i < n; ++i) {
+        double x;
+        cin >> x;
+        sorted[i] = x;
+        arr[x] = i;
+    }
+    sort(sorted.begin(), sorted.end());
+    double min = INT_MAX;
+    for (int i = 0; i < n - 1; ++i) {
+        double x = sorted[i + 1] - sorted[i];
+        if (x < min) {
+            int first = arr[sorted[i]];
+            int second = arr[sorted[i + 1]];
+            if (second < first) {
+                min = x;
+            }
+        }
+    }
+    cout << long(min);
+```
 ### Factorial of a large number:
 Issue of the problem: Large factorials can't be stored even in case of long long int. So, the given below is a idea for solving such cases.
 
