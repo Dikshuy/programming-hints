@@ -176,6 +176,22 @@ string organizingContainers(vector<vector<int>> container){
 
 }
 ```
+### Almost sorted:
+Issue of the problem: Checking whether a vector can be sorted using reverse or swap operation. [link](https://www.hackerrank.com/challenges/almost-sorted/problem?isFullScreen=true)
+
+Hint: * Run through the vector from index 1 to len-2 ( leaving the first and last elements)
+
+* At each of these indices check whether it forms an inversion or a reverse inversion. Inversion is if curr > prev && curr > next. Similarly find out reverse inversions, curr < prev && curr < next. I call inversions as dips, and reverse inversions as ups. For the first and last elements you can check only the next and prev respectively as they are at the boundary.
+
+* Once you have collected data of these inversions, if you analyze you will see that if reverse has to form a soln, you will have only one dip and one up.
+
+* And if swapping can be soln then there will be 2 dips and 2 ups.
+
+* If you get more than 2 dips and 2ups, it means it can't be solved.
+
+* There are some edge cases which you need to take care of though.
+
+A relevant you tube [video](https://www.youtube.com/watch?v=UWmSQFNjEZg&feature=youtu.be) to get a deeper insight of above algorithm.
 
 ### 3D surface area:
 Issue of the problem: [link](https://www.hackerrank.com/challenges/3d-surface-area/problem?isFullScreen=true)
