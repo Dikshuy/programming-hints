@@ -56,10 +56,36 @@ Hint: Sort the array, and then check the difference of adjacent pairs, if its le
     }
     cout << long(min);
 ```
+### Power Sum
+Issue of the problem: [link](https://www.hackerrank.com/challenges/the-power-sum/problem)
+
+Hint: (This hint I found in the discussion panel and is a very easy implementation of recursion).
+
+* At any point, either we can either use that number or not.
+* If we do not use it then X value will remain same.
+* And if we use it, then we have to subtract pow(num, N) from X.
+* num value will increase every time as we can use one number at most once.
+* Our answer will be sum of both these cases. This is obvious.
+* And then we will do same thing for two values of X i.e. X and X-pow(num,N).
+* If value of X is less than pow(num, N) then we cannot get answer as value of num will keep increasing. Hence, we return 0.
+* If it is equal to 1, then we can return 1.
+
+**Implementation**:
+```bash
+int powerSum(int X,int N,int num){
+    if(pow(num,N)<X)
+        return powerSum(X,N,num+1)+powerSum(X-pow(num,N),N,num+1);
+    else if(pow(num,N)==X)
+        return 1;
+    else
+        return 0;
+}
+```
+
 ### Factorial of a large number:
 Issue of the problem: Large factorials can't be stored even in case of long long int. So, the given below is a idea for solving such cases.
 
-Hint: Iinitialize a matrix of a large size ,let's say, 1000. Put its start value as 1 and one other parameter size as 1. Now, as you peform normal multplication update the values.
+Hint: Initialize a matrix of a large size ,let's say, 1000. Put its start value as 1 and one other parameter size as 1. Now, as you peform normal multplication update the values.
 
 **Implementation**:
 ```bash
