@@ -1,4 +1,4 @@
-## Hints for hacker-rank problems
+## Hints for hacker-rank and leetcode problems
 
 ### Larry's array:
 Issue of the problem: Test whether array can be sorted by swaping three items at a time in order: ABC -> BCA -> CAB -> ABC. [Link](https://www.hackerrank.com/challenges/larrys-array/problem?isFullScreen=true)
@@ -6,7 +6,7 @@ Issue of the problem: Test whether array can be sorted by swaping three items at
 Hint: Check out the number of inversions. The given below implementation seems to be simple but there is an awesome logic behind this. Refer to these paper's for understanding the logic behind it. [Paper1](https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html) and [Paper2](http://kevingong.com/Math/SixteenPuzzle.html)
 
 **Implementation**:
-```bash
+```python
 string larrysArray(vector<int> A) {
     int n=A.size();
     int sum=0;
@@ -31,7 +31,7 @@ Issue of the problem: Time complexity issue in case of larger values. [link](htt
 Hint: Sort the array, and then check the difference of adjacent pairs, if its less than ur last min value, update it only if the index of those pairs are in same way in original array.
 
 **Implementation**:
-```bash
+```python
     int n;
     cin >> n;
     vector<double> sorted(n);
@@ -71,7 +71,7 @@ Hint: (This hint I found in the discussion panel and is a very easy implementati
 * If it is equal to 1, then we can return 1.
 
 **Implementation**:
-```bash
+```python
 int powerSum(int X,int N,int num){
     if(pow(num,N)<X)
         return powerSum(X,N,num+1)+powerSum(X-pow(num,N),N,num+1);
@@ -88,7 +88,7 @@ Issue of the problem: Large factorials can't be stored even in case of long long
 Hint: Initialize a matrix of a large size ,let's say, 1000. Put its start value as 1 and one other parameter size as 1. Now, as you peform normal multplication update the values.
 
 **Implementation**:
-```bash
+```python
 void extraLongFactorials(int n) {
     int val[1000];
     int size = 1;
@@ -117,7 +117,7 @@ Problem: Given the queen's position and the locations of all the obstacles, find
 Hint: Initialize the distances from the current position to the end of the chessboard in every direction to its actual distance. Then check along every direction and when any obstacle comes in front, set that distance as the value along that direction.
 
 **Implemenatation**:
-```bash
+```python
 int queensAttack(int n, int k, int r_q, int c_q, vector<vector<int>> obstacles) {
 
 queen_row = r_q
@@ -176,7 +176,7 @@ Hint: 1. Make a vector of capacity of every box  2. Make a vector of all the bal
 Compare both the vectors. If same then possible else impossible.
 
 **Implementation**:
-```bash
+```python
 string organizingContainers(vector<vector<int>> container){
     vector<int> capacity;
     vector<int> balls;
@@ -225,7 +225,7 @@ Issue of the problem: [link](https://www.hackerrank.com/challenges/3d-surface-ar
 Hint: The base of the Figure will always contribute to the total surface area of the figure. Now, to calculate the area contributed by the walls, we will take out the absolute difference between the height of two adjacent wall. The difference will be the contribution in the total surface area.
 
 **Implementation**
-```bash
+```python
 int contribution_height(int current, int previous) { 
     return abs(current - previous); 
 }
@@ -267,7 +267,7 @@ Issue: Represents the smallest lexicographically smallest permutation of natural
 Hint: Distribute into k and swap between 2k.
 
 **Implementation**:
-```bash
+```python
 vector<int> absolutePermutation(int n, int k) {
     vector<int> pos(n);
     for(int i=0; i<n; i++){
@@ -296,7 +296,7 @@ Issue: Check whether the teams can be ranked on the basis of three parameters. [
 Hint: Make a 2d vector and sort it. Then do comparisons in rows and change the bool if not possible.
 
 **Implementation**:
-```bash
+```python
 int n;
     cin>>n;
     vector<vector<int>> v(n);
@@ -326,4 +326,72 @@ int n;
         cout<<"Yes";
     else
         cout<<"No";
-```bash
+```
+
+### Adding Two numbers
+Issue: Numbers are stored in linked lists, so how to access them properly. [link](https://leetcode.com/problems/add-two-numbers/)
+
+Hint: Convert nodes to a list and then back to linked list.
+
+**Implementation**
+```python
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class Solution:
+    def node_to_list(self, listnode):
+        l=[]
+        while True:
+            l.append(listnode.val)
+            if listnode.next != None:
+                listnode = listnode.next
+            else:
+                return l
+            
+    def list_to_LL(self,arr):
+        if len(arr) < 1:
+            return None
+
+        if len(arr) == 1:
+            return ListNode(arr[0])
+        return ListNode(arr[0], next=self.list_to_LL(arr[1:]))
+
+#     def reverseList(head: ListNode) -> ListNode:
+#         prev = None
+#         while head:
+#             next_node = head.next
+#             head.next = prev
+#             prev = head
+#             head = next_node
+
+#         return prev
+    
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        
+        l1 = self.node_to_list(l1)
+        l2 = self.node_to_list(l2)
+        num1=0
+        num2=0
+        for i in range(len(l1)):
+            num1+=l1[i]*(10**i)
+        for i in range(len(l2)):
+            num2+=l2[i]*(10**i)
+        num = num1+num2
+        l = []
+        if num==0:
+            l=[0]
+        while num>0:
+            l.append(num%10)
+            num=num//10
+            
+        return self.list_to_LL(l)
+```
+
+### Reduce array size to half
+Issue: sort the dictionary by values. [link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/608/week-1-july-1st-july-7th/3804/)
+
+Hint: Use counter function from collections library and then `Counter(arr).most_common` to sort the counter dicitonary according to the values or can use this: `sorted(Counter(arr).items(), key=lambda x: x[1], reverse=True)`
