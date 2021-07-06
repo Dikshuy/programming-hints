@@ -395,3 +395,39 @@ class Solution:
 Issue: sort the dictionary by values. [link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/608/week-1-july-1st-july-7th/3804/)
 
 Hint: Use counter function from collections library and then `Counter(arr).most_common` to sort the counter dicitonary according to the values or can use this: `sorted(Counter(arr).items(), key=lambda x: x[1], reverse=True)`
+
+### Merge k Sorted Lists
+Issue: linked lists and have to return as a linked list. [link](https://leetcode.com/problems/merge-k-sorted-lists/)
+
+Hint: Decode and encode linked list
+
+**Implementation**
+```python
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        
+        def helper(node):
+            nodes = []
+            while node: 
+                nodes.append(node)
+                node = node.next
+            return nodes
+        
+        nodes = []
+        for node in lists:
+            nodes.extend(helper(node))
+        
+        if not nodes:
+            return 
+        
+        # print(nodes)
+        # print(type(nodes))
+        nodes.sort(key = lambda x: x.val)
+        
+        for node1, node2 in zip(nodes, nodes[1:]):
+            node1.next = node2
+        
+        nodes[-1].next = None
+        
+        return nodes[0]
+```
