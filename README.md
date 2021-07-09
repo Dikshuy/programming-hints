@@ -1,7 +1,18 @@
 ## Hints and implemenation of some leetcode and hackerrank problems
 
+### Longest Increasing Path in a matrix
+Issue: Optimal way of searching using DFS(Depth First Search algorithm). [Problem link](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/)
+
+Hint: Refer this [video](https://www.youtube.com/watch?v=7fujbpJ0LB4&ab_channel=WilliamFiset) for understanding DFS.
+
+> Approach: Depth-first search is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking. So the basic idea is to start from the root or any arbitrary node and mark the node and move to the adjacent unmarked node and continue this loop until there is no unmarked adjacent node. Then backtrack and check for other unmarked nodes and traverse them. Finally print the nodes in the path.
+
+**Implementation**
+```python
+
+```
 ### Longest Increasing Subsequence
-Issue: Find out am optimal solution using dynamic programming. [Problem link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3808/) 
+Issue: Find out an optimal solution using dynamic programming. [Problem link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3808/) 
 
 Hint: Use memorization or tabulation. [video](https://youtu.be/4fQJGoeW5VE)
 
