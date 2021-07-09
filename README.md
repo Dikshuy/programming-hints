@@ -5,7 +5,7 @@ Issue: Optimal way of searching using DFS(Depth First Search algorithm). [Proble
 
 Hint: Refer this [video](https://www.youtube.com/watch?v=7fujbpJ0LB4&ab_channel=WilliamFiset) for understanding DFS.
 
-> Approach: Depth-first search is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking. So the basic idea is to start from the root or any arbitrary node and mark the node and move to the adjacent unmarked node and continue this loop until there is no unmarked adjacent node. Then backtrack and check for other unmarked nodes and traverse them. Finally print the nodes in the path.
+> Approach: Depth-first search is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking. So the basic idea is to start from the root or any arbitrary node and mark the node and move to the adjacent unmarked node and continue this loop until there is no unmarked adjacent node. Then backtrack and check for other unmarked nodes and traverse them.
 
 **Implementation**
 ```python
@@ -45,7 +45,7 @@ class Solution:
 ### Longest Increasing Subsequence
 Issue: Find out an optimal solution using dynamic programming. [Problem link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3808/) 
 
-Hint: Use memorization or tabulation. [video](https://youtu.be/4fQJGoeW5VE)
+Hint: Use memoization or tabulation. [video](https://youtu.be/4fQJGoeW5VE) for reference
 
 **Implementation**
 ```python
@@ -62,6 +62,38 @@ class Solution:
         return max_
 ```
 Future work: Above implementation takes `O(N*N)` time complexity, reduce it `O(NlogN)`. Refer this [link](https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/)
+
+### Russian Doll envelops
+Issue: Minimize time complexity and solve using DP and binary search. [Problem link](https://leetcode.com/problems/russian-doll-envelopes/)
+
+Hint: Use the logic of LIS. Also, go through this [bisect](https://www.geeksforgeeks.org/bisect-algorithm-functions-in-python/) library which is used to find a position in list where an element needs to be inserted to keep the list sorted
+
+**Implementation**
+```python
+class Solution:
+    def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
+        # For each envelope, sorted by envelope[0] first, so envelope[1] is the the longest
+        # increasing sequence(LIS) problem. When envelope[0] tie, we reverse sort by envelope[1]
+        # because bigger envelope[1] can't contain the previous one.
+        envelopes.sort(key=lambda e: (e[0], -e[1]))
+        # dp keeps some of the visited element in a sorted list, and its size is length Of LIS
+        # so far. It always keeps the our best chance to build a LIS in the future.
+        dp = []
+        for envelope in envelopes:
+            i = bisect.bisect_left(dp, envelope[1])
+            if i == len(dp):
+                # If envelope[1] is the biggest, we should add it into the end of dp.
+                dp.append(envelope[1])
+            else:
+                # If envelope[1] is not the biggest, we should keep it in dp and replace the
+                # previous envelope[1] in this position. Because even if envelope[1] can't build
+                # longer LIS directly, it can help build a smaller dp, and we will have the best
+                # chance to build a LIS in the future. All elements before this position will be
+                # the best(smallest) LIS sor far. 
+                dp[i] = envelope[1]
+        # dp doesn't keep LIS, and only keep the length Of LIS.
+        return len(dp)
+```
 
 ### Sort the matrix Diagonal
 Issue: [link](https://leetcode.com/problems/sort-the-matrix-diagonally/submissions/)
