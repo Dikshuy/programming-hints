@@ -63,6 +63,34 @@ class Solution:
 ```
 Future work: Above implementation takes `O(N*N)` time complexity, reduce it `O(NlogN)`. Refer this [link](https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/)
 
+### Sort the matrix Diagonal
+Issue: [link](https://leetcode.com/problems/sort-the-matrix-diagonally/submissions/)
+
+Hint:Store the matrices diagonal in `collections.defaultdict(list)` and sort them
+
+**Implementation**
+```python
+class Solution:
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+        dict=collections.defaultdict(list)
+        n=len(mat)
+        m=len(mat[0])
+        for i in range(0,n):
+            for j in range(0,m):
+                dict[n-1-i+j].append(mat[i][j])
+    
+        for i in dict:
+            dict[i].sort()
+            
+        ans=[[0 for i in range(0,m)] for i in range(0,n)]
+        for i in range(0,n):
+            for j in range(0,m):
+                print(dict[n-1-i+j])
+                ans[i][j]=dict[n-1-i+j][0]
+                dict[n-1-i+j].pop(0)
+                
+        return ans
+```
 ### Merge k Sorted Linked Lists
 Issue: linked lists and have to return as a linked list. [link](https://leetcode.com/problems/merge-k-sorted-lists/)
 
