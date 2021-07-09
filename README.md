@@ -1,4 +1,145 @@
-## Hints for hacker-rank and leetcode problems
+## Hints and implemenation of some leetcode and hackerrank problems
+
+### Longest Increasing Subsequence
+Issue: Find out am optimal solution using dynamic programming. [Problem link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3808/) 
+
+Hint: Use memorization or tabulation. [video](https://youtu.be/4fQJGoeW5VE)
+
+**Implementation**
+```python
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        L = [1]*len(nums)
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if nums[j] < nums[i] and L[i] < L[j]+1:
+                    L[i] = L[j]+1
+        max_ = 0
+        for i in range(len(nums)):
+            max_ = max(max_, L[i])
+        return max_
+```
+Future work: Above implementation takes `O(N*N)` time complexity, reduce it `O(NlogN)`. Refer this [link](https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/)
+
+### Merge k Sorted Linked Lists
+Issue: linked lists and have to return as a linked list. [link](https://leetcode.com/problems/merge-k-sorted-lists/)
+
+Hint: Decode and encode linked list
+
+**Implementation**
+```python
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        
+        def helper(node):
+            nodes = []
+            while node: 
+                nodes.append(node)
+                node = node.next
+            return nodes
+        
+        nodes = []
+        for node in lists:
+            nodes.extend(helper(node))
+        
+        if not nodes:
+            return 
+        
+        # print(nodes)
+        # print(type(nodes))
+        nodes.sort(key = lambda x: x.val)
+        
+        for node1, node2 in zip(nodes, nodes[1:]):
+            node1.next = node2
+        
+        nodes[-1].next = None
+        
+        return nodes[0]
+```
+
+### Maximum length of repeated subarray
+Issue: reduce time complexity using DP. [link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3807/)
+
+Hint: Maintain a new 2d array of zeros and update whenever you sth common.
+
+**Implementation**
+```python
+class Solution:
+    def findLength(self, nums1: List[int], nums2: List[int]) -> int:
+        dp = [[0 for i in range(len(nums1) + 1)] for i in range(len(nums2) + 1)]
+        for i in range(len(nums1)-1,-1,-1):
+            for j in range(len(nums2)-1,-1,-1):
+                if nums1[i] == nums2[j]:
+                    dp[j][i] = dp[j+1][i+1] + 1
+        num = 0
+        for i in dp:
+            for j in i:
+                num = max(num,j)
+        return num
+```
+
+### Adding Two numbers
+Issue: Numbers are stored in linked lists, so how to access them properly. [link](https://leetcode.com/problems/add-two-numbers/)
+
+Hint: Convert nodes to a list and then back to linked list.
+
+**Implementation**
+```python
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class Solution:
+    def node_to_list(self, listnode):
+        l=[]
+        while True:
+            l.append(listnode.val)
+            if listnode.next != None:
+                listnode = listnode.next
+            else:
+                return l
+            
+    def list_to_LL(self,arr):
+        if len(arr) < 1:
+            return None
+
+        if len(arr) == 1:
+            return ListNode(arr[0])
+        return ListNode(arr[0], next=self.list_to_LL(arr[1:]))
+
+#     def reverseList(head: ListNode) -> ListNode:
+#         prev = None
+#         while head:
+#             next_node = head.next
+#             head.next = prev
+#             prev = head
+#             head = next_node
+
+#         return prev
+    
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        
+        l1 = self.node_to_list(l1)
+        l2 = self.node_to_list(l2)
+        num1=0
+        num2=0
+        for i in range(len(l1)):
+            num1+=l1[i]*(10**i)
+        for i in range(len(l2)):
+            num2+=l2[i]*(10**i)
+        num = num1+num2
+        l = []
+        if num==0:
+            l=[0]
+        while num>0:
+            l.append(num%10)
+            num=num//10
+            
+        return self.list_to_LL(l)
+```
 
 ### Larry's array:
 Issue of the problem: Test whether array can be sorted by swaping three items at a time in order: ABC -> BCA -> CAB -> ABC. [Link](https://www.hackerrank.com/challenges/larrys-array/problem?isFullScreen=true)
@@ -328,127 +469,7 @@ int n;
         cout<<"No";
 ```
 
-### Adding Two numbers
-Issue: Numbers are stored in linked lists, so how to access them properly. [link](https://leetcode.com/problems/add-two-numbers/)
-
-Hint: Convert nodes to a list and then back to linked list.
-
-**Implementation**
-```python
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-
-class Solution:
-    def node_to_list(self, listnode):
-        l=[]
-        while True:
-            l.append(listnode.val)
-            if listnode.next != None:
-                listnode = listnode.next
-            else:
-                return l
-            
-    def list_to_LL(self,arr):
-        if len(arr) < 1:
-            return None
-
-        if len(arr) == 1:
-            return ListNode(arr[0])
-        return ListNode(arr[0], next=self.list_to_LL(arr[1:]))
-
-#     def reverseList(head: ListNode) -> ListNode:
-#         prev = None
-#         while head:
-#             next_node = head.next
-#             head.next = prev
-#             prev = head
-#             head = next_node
-
-#         return prev
-    
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        
-        l1 = self.node_to_list(l1)
-        l2 = self.node_to_list(l2)
-        num1=0
-        num2=0
-        for i in range(len(l1)):
-            num1+=l1[i]*(10**i)
-        for i in range(len(l2)):
-            num2+=l2[i]*(10**i)
-        num = num1+num2
-        l = []
-        if num==0:
-            l=[0]
-        while num>0:
-            l.append(num%10)
-            num=num//10
-            
-        return self.list_to_LL(l)
-```
-
 ### Reduce array size to half
 Issue: sort the dictionary by values. [link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/608/week-1-july-1st-july-7th/3804/)
 
 Hint: Use counter function from collections library and then `Counter(arr).most_common` to sort the counter dicitonary according to the values or can use this: `sorted(Counter(arr).items(), key=lambda x: x[1], reverse=True)`
-
-### Merge k Sorted Lists
-Issue: linked lists and have to return as a linked list. [link](https://leetcode.com/problems/merge-k-sorted-lists/)
-
-Hint: Decode and encode linked list
-
-**Implementation**
-```python
-class Solution:
-    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        
-        def helper(node):
-            nodes = []
-            while node: 
-                nodes.append(node)
-                node = node.next
-            return nodes
-        
-        nodes = []
-        for node in lists:
-            nodes.extend(helper(node))
-        
-        if not nodes:
-            return 
-        
-        # print(nodes)
-        # print(type(nodes))
-        nodes.sort(key = lambda x: x.val)
-        
-        for node1, node2 in zip(nodes, nodes[1:]):
-            node1.next = node2
-        
-        nodes[-1].next = None
-        
-        return nodes[0]
-```
-
-### Maximum length of repeated subarray
-Issue: reduce time complexity using DP. [link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3807/)
-
-Hint: Maintain a new 2d array of zeros and update whenever you sth common.
-
-**Implementation**
-```python
-class Solution:
-    def findLength(self, nums1: List[int], nums2: List[int]) -> int:
-        dp = [[0 for i in range(len(nums1) + 1)] for i in range(len(nums2) + 1)]
-        for i in range(len(nums1)-1,-1,-1):
-            for j in range(len(nums2)-1,-1,-1):
-                if nums1[i] == nums2[j]:
-                    dp[j][i] = dp[j+1][i+1] + 1
-        num = 0
-        for i in dp:
-            for j in i:
-                num = max(num,j)
-        return num
-```
