@@ -9,8 +9,39 @@ Hint: Refer this [video](https://www.youtube.com/watch?v=7fujbpJ0LB4&ab_channel=
 
 **Implementation**
 ```python
-
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        if not matrix:
+            return 0
+        rows = len(matrix)
+        cols = len(matrix[0])
+        traced = {}
+        ans = 0
+        for i in range(rows):
+            for j in range(cols):
+                path = self.search(matrix, i, j, traced) 
+                ans = max(ans, path)
+        return ans
+    
+    def search(self, matrix, i, j, traced):
+        rows = len(matrix)
+        cols = len(matrix[0])
+        
+        if (i,j) in traced:
+            return traced.get((i,j))
+        
+        dirs = [(-1,0),(1,0),(0,1),(0,-1)]        
+        path = 1
+        
+        for x, y in dirs:
+            new_x = x+i
+            new_y = y+j
+            if rows>new_x>=0 and cols>new_y>=0 and matrix[new_x][new_y]>matrix[i][j]:
+                path = max(path, 1+self.search(matrix, new_x, new_y, traced))
+        traced[(i,j)] = path           
+        return traced[(i,j)]
 ```
+
 ### Longest Increasing Subsequence
 Issue: Find out an optimal solution using dynamic programming. [Problem link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3808/) 
 
