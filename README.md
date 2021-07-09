@@ -431,3 +431,24 @@ class Solution:
         
         return nodes[0]
 ```
+
+### Maximum length of repeated subarray
+Issue: reduce time complexity using DP. [link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3807/)
+
+Hint: Maintain a new 2d array of zeros and update whenever you sth common.
+
+**Implementation**
+```python
+class Solution:
+    def findLength(self, nums1: List[int], nums2: List[int]) -> int:
+        dp = [[0 for i in range(len(nums1) + 1)] for i in range(len(nums2) + 1)]
+        for i in range(len(nums1)-1,-1,-1):
+            for j in range(len(nums2)-1,-1,-1):
+                if nums1[i] == nums2[j]:
+                    dp[j][i] = dp[j+1][i+1] + 1
+        num = 0
+        for i in dp:
+            for j in i:
+                num = max(num,j)
+        return num
+```
