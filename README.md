@@ -69,6 +69,8 @@ Issue: To decode an encoded message, all the digits must be grouped then mapped 
 Hint: For recursive solution, take either only the first or first two digits of the given number and recurse through the rest in a similar manner.
 
 **Implementation**
+
+**recursive**
 ```python
 class Solution:
     def numDecodings(self, s: str) -> int:
@@ -82,8 +84,19 @@ class Solution:
             first = self.sub(string[1:])
         if 10 <= int(string[:2]) <= 26:
             second = self.sub(string[2:])
-        return first+second
-                
+        return first+second             
+```
+**dynamic programming**
+```python
+class Solution:
+    def numDecodings(self, s: str) -> int:             
+        if s[0] == "0": return 0         
+        dp = [1] * (len(s) + 1)
+
+        for i in range(2, len(s) + 1):
+            dp[i] = (dp[i - 1] if 1 <= int(s[i - 1]) <= 9 else 0) + (dp[i - 2] if 10 <= int(s[i - 2] + s[i - 1]) <= 26 else 0)
+        
+        return dp[-1]               
 ```
 
 ### Russian Doll envelops
