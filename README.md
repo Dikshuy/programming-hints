@@ -63,6 +63,29 @@ class Solution:
 ```
 Future work: Above implementation takes `O(N*N)` time complexity, reduce it `O(NlogN)`. Refer this [link](https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/)
 
+### Decode Ways
+Issue: To decode an encoded message, all the digits must be grouped then mapped back into letters using the reverse of the mapping above. [Problem link](https://leetcode.com/problems/decode-ways/)
+
+Hint: For recursive solution, take either only the first or first two digits of the given number and recurse through the rest in a similar manner.
+
+**Implementation**
+```python
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        if s[0] == "0": return 0
+        return self.sub(s)
+    def sub(self,string):
+        if not string:
+            return 1
+        first = second = 0
+        if 1 <= int(string[:1]) <= 9:
+            first = self.sub(string[1:])
+        if 10 <= int(string[:2]) <= 26:
+            second = self.sub(string[2:])
+        return first+second
+                
+```
+
 ### Russian Doll envelops
 Issue: Minimize time complexity and solve using DP and binary search. [Problem link](https://leetcode.com/problems/russian-doll-envelopes/)
 
