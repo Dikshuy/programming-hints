@@ -195,6 +195,33 @@ class Solution:
         return nodes[0]
 ```
 
+### Merge in between linked list
+Issue: Converting back to list and then retracing back exceeded the time limit. [link](https://leetcode.com/problems/merge-in-between-linked-lists/)
+
+Hint: Just check the head and node.next of where we want to add the LL
+
+**Implementation**
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
+        prev = head = ListNode(0, list1) # Sentinal node for edge a=1
+        for _ in range(a): # Reach node before left
+            head = head.next
+        temp = head
+        for _ in range(b - a + 1): # Reach right node
+            head = head.next
+        temp.next = list2 # Add newlist at left
+        while list2.next: # Traverse the new list
+            list2 = list2.next
+        list2.next = head.next # Add nodes after right node
+        return prev.next
+```
+
 ### Maximum length of repeated subarray
 Issue: reduce time complexity using DP. [link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3807/)
 
