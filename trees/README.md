@@ -46,3 +46,41 @@ class Solution(object):
 
         return self.validate(tree.left, minimum=minimum, maximum=tree.val) and self.validate(tree.right, minimum=tree.val, maximum=maximum)
 ```
+
+### Symmetric Tree
+Problem [link](https://leetcode.com/explore/featured/card/top-interview-questions-easy/94/trees/627/)
+
+Hint: Traverse the tree with **BFS** at a level base, save the node values in a list called *level* even with value *None*
+
+**Implementation**
+```python
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root: return True
+        count = 0
+        res = []
+        queue = [root]
+
+        while queue:
+            level=[]
+            qlen = len(queue)
+            while qlen>0:
+                temp = queue.pop(0)
+                if temp is None:
+                    level.append(None)
+                    qlen -= 1 
+                    continue
+                level.append(temp.val)               
+                queue.append(temp.left)
+                queue.append(temp.right)
+                qlen -= 1 
+
+            res.append(level)
+        
+        for i in range(len(res)):
+            if res[i] != res[i][::-1]:
+                count += 1
+            
+        if count > 0: return False
+        else: return True
+```
