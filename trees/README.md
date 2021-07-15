@@ -112,4 +112,9 @@ class Solution:
             res.append(level)
         return res
 ```
-![leaf sum](~/github/programming-hints/trees/leaf_sum.png "leaf sum algorithm")
+![leaf sum](leaf_sum.png "leaf sum algo")
+
+![storing trees](storing_trees.png "storing the index of the tree")
+
+![rooting tree](rooting_tree.png "rooting tree algo")
+
