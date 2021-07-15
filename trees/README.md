@@ -1,4 +1,4 @@
-## Some common problem related to trees
+## Some common problems related to trees
 
 ### Maximum depth of binary trees
 Problem [link](https://leetcode.com/explore/featured/card/top-interview-questions-easy/94/trees/555/)
@@ -112,3 +112,4 @@ class Solution:
             res.append(level)
         return res
 ```
+![leaf sum](~/github/programming-hints/trees/leaf_sum.png "leaf sum algorithm")
