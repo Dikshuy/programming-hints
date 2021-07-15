@@ -84,3 +84,31 @@ class Solution:
         if count > 0: return False
         else: return True
 ```
+
+### Binary Tree Level Order Traversal
+
+Problem [link](https://leetcode.com/explore/featured/card/top-interview-questions-easy/94/trees/628/)
+
+Hint: Use BFS
+
+**Implementation**
+```python
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:        
+        if not root: return 
+        queue = [root]
+        res = []
+
+        while len(queue)>0:
+            level=[]
+            for i in range(len(queue)):
+                temp = queue.pop(0)
+                level.append(temp.val)
+                if temp.left:
+                    queue.append(temp.left)
+                if temp.right:
+                    queue.append(temp.right)
+
+            res.append(level)
+        return res
+```
