@@ -130,7 +130,7 @@ class Solution:
             targetSum -= root.val
             return self.hasPathSum(root.left,targetSum) or self.hasPathSum(root.right, targetSum)
 ```
----
+----
 ![leaf sum](leaf_sum.png "leaf sum algo")
 
 ![storing trees](storing_trees.png "storing the index of the tree")
