@@ -112,6 +112,25 @@ class Solution:
             res.append(level)
         return res
 ```
+
+### Path Sum
+
+Problem [link](https://leetcode.com/problems/path-sum/)
+
+Hint: Use recursion + DFS
+
+**Implementation**
+```python
+class Solution:
+    def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+        if not root: return False
+        if not (root.left or root.right) and root.val != targetSum: return False
+        if not (root.left or root.right) and root.val == targetSum: return True
+        else:
+            targetSum -= root.val
+            return self.hasPathSum(root.left,targetSum) or self.hasPathSum(root.right, targetSum)
+```
+---
 ![leaf sum](leaf_sum.png "leaf sum algo")
 
 ![storing trees](storing_trees.png "storing the index of the tree")
