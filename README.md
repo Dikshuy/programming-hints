@@ -42,6 +42,24 @@ class Solution:
         return traced[(i,j)]
 ```
 
+### Binary Tree Maximum Path Sum
+Issue: [Problem link](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
+
+Hint: Use DFS 
+
+**Implementation**
+```python
+class Solution:
+    def maxPathSum(self, root: TreeNode) -> int:
+        self.ans = float(-inf)
+        def dfs(root):
+            if not root: return 0
+            self.ans = max(self.ans, dfs(root.left)+dfs(root.right)+root.val)  
+            return max(0, root.val+max(dfs(root.left),dfs(root.right)))      # check whether the left or part returns max sum   
+        dfs(root)
+        return self.ans
+```
+
 ### Longest Increasing Subsequence
 Issue: Find out an optimal solution using dynamic programming. [Problem link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3808/) 
 
