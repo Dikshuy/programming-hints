@@ -1,20 +1,13 @@
-"""
-Problem: Baxter Scott owns The Enlightened Dairy Co., a dairy company with magical cows. Early each morning, he brushes his teeth, strolls outside,
-and finds that the cows have doubled in number. With double the number of cows, he can produce double the quantity of milk. While he is
-ecstatic that he has so many cows and so much milk, the Dairy Regulator forces him to keep at most C cows on any given farm, which greatly
-complicates his business. 
-At The Enlightened Dairy Co., Baxter has access to an unlimited number of farms, each with a maximum capacity of
-C cows. On each farm, cows reproduce at the same rate: they always double in number when the clock strikes midnight. To stay within the
-Regulator’s rules, whenever a farm has strictly more than C cows, Baxter selects half of the cows on that farm and moves them to an 
-entirely new, empty farm. More precisely, if there are D≤C cows on a farm, he leaves all D cows on the farm, but if there are D>C cows 
-on a farm, he leaves ⌈D2⌉ cows on the farm and takes ⌊D2⌋ cows to a new, empty farm. (Here ⌈ ⌉ and ⌊ ⌋ denote the ceiling and floor 
-functions, which round up/down to the nearest integer, respectively.) He does this early every morning, before the Regulator could possibly 
-show up, so that he can avoid paying hefty Moo Fees.
-The Regulator needs to know how many farms she will be inspecting when she visits The Enlightened Dairy Co. The Regulator inspects every 
-farm that has at least one cow, and does not inspect any farm with zero cows. Given the number of cows on each farm with at least one cow 
-on Day 0, compute the number of farms that need inspecting on any given day.
-"""
+## Some common problems related to dynamic programming
 
+### Magical Cows
+
+Problem [link](https://open.kattis.com/problems/magicalcows)
+
+Hint: Make a table of size max days+1 rows and C+1 columns. Refer this [video](https://www.youtube.com/watch?v=_tur2nPkIKo&list=PLDV1Zeh2NRsAsbafOroUBnNV8fhZa7P4u&index=2&ab_channel=WilliamFiset)
+
+**Implementation**
+```python
 def cows(C,N,M,initial_cows,dp,queries):
 	cows_on_query = []
 	# count the initial frequency of farms of different sizes
@@ -47,4 +40,4 @@ if __name__ == '__main__':
 
 	dp =[[0 for _ in range(C+1)] for _ in range(MAX_DAYS+1)]
 	print(cows(C,N,M,initial_cows,dp,queries))
-
+```
