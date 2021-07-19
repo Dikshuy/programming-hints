@@ -6,6 +6,8 @@ Problem [link](https://open.kattis.com/problems/magicalcows)
 
 Hint: Make a table of size max days+1 rows and C+1 columns. Refer this [video](https://www.youtube.com/watch?v=_tur2nPkIKo&list=PLDV1Zeh2NRsAsbafOroUBnNV8fhZa7P4u&index=2&ab_channel=WilliamFiset)
 
+![magical cows](magical_cows.png "magical cow")
+
 **Implementation**
 ```python
 def cows(C,N,M,initial_cows,dp,queries):
