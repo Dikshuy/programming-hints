@@ -81,6 +81,17 @@ class Solution:
 ```
 Future work: Above implementation takes `O(N*N)` time complexity, reduce it `O(NlogN)`. Refer this [link](https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/)
 
+### Text Justification
+Issue: Formatting the chosen letters. [Problem Link](https://leetcode.com/problems/text-justification/)
+
+Hint: Think of 1. How many words we need to form each line.
+      2. How many spaces we should insert between two words.
+      
+**Implementation**
+```python
+
+```
+
 ### Decode Ways
 Issue: To decode an encoded message, all the digits must be grouped then mapped back into letters using the reverse of the mapping above. [Problem link](https://leetcode.com/problems/decode-ways/)
 
