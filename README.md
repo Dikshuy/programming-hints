@@ -42,6 +42,40 @@ class Solution:
         return traced[(i,j)]
 ```
 
+### Making a large Island
+Issue: this current implementation is using runtine complexity as O(N^4), try to optimize it. [Problem link](https://leetcode.com/problems/making-a-large-island/)
+
+Hint: For each 0, change it to a 1, then do a depth first search to find the size of that component. The answer is the maximum size component found.
+
+**Implementation**
+```python
+class Solution:
+    def largestIsland(self, grid: List[List[int]]) -> int:
+        
+        def search(i,j):
+            seen = {(i,j)}
+            stack = [(i,j)]
+            while stack:
+                i,j = stack.pop()
+                for new_i,new_j in ((i-1,j),(i+1,j),(i,j-1),(i,j+1)):
+                    if 0<=new_i<len(grid) and 0<=new_j<len(grid[0]) and (new_i,new_j) not in seen and grid[new_i][new_j]:
+                        stack.append((new_i, new_j))
+                        seen.add((new_i, new_j))
+            return len(seen)
+       
+        has_zero = False
+        ans = 0
+        for i in range(0, len(grid)):
+            for j in range(0, len(grid[0])):
+                if grid[i][j]==0:
+                    has_zero = True
+                    grid[i][j]=1
+                    ans = max(ans, search(i,j))
+                    grid[i][j]=0
+                    
+        return ans if has_zero else len(grid)*len(grid[0])
+```
+
 ### Binary Tree Maximum Path Sum
 Issue: [Problem link](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 
