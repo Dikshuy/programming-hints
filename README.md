@@ -42,6 +42,40 @@ class Solution:
         return traced[(i,j)]
 ```
 
+### Making a large Island
+Issue: this current implementation is using runtine complexity as O(N^4), try to optimize it. [Problem link](https://leetcode.com/problems/making-a-large-island/)
+
+Hint: For each 0, change it to a 1, then do a depth first search to find the size of that component. The answer is the maximum size component found.
+
+**Implementation**
+```python
+class Solution:
+    def largestIsland(self, grid: List[List[int]]) -> int:
+        
+        def search(i,j):
+            seen = {(i,j)}
+            stack = [(i,j)]
+            while stack:
+                i,j = stack.pop()
+                for new_i,new_j in ((i-1,j),(i+1,j),(i,j-1),(i,j+1)):
+                    if 0<=new_i<len(grid) and 0<=new_j<len(grid[0]) and (new_i,new_j) not in seen and grid[new_i][new_j]:
+                        stack.append((new_i, new_j))
+                        seen.add((new_i, new_j))
+            return len(seen)
+       
+        has_zero = False
+        ans = 0
+        for i in range(0, len(grid)):
+            for j in range(0, len(grid[0])):
+                if grid[i][j]==0:
+                    has_zero = True
+                    grid[i][j]=1
+                    ans = max(ans, search(i,j))
+                    grid[i][j]=0
+                    
+        return ans if has_zero else len(grid)*len(grid[0])
+```
+
 ### Binary Tree Maximum Path Sum
 Issue: [Problem link](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 
@@ -58,6 +92,42 @@ class Solution:
             return max(0, root.val+max(dfs(root.left),dfs(root.right)))      # check whether the left or part returns max sum   
         dfs(root)
         return self.ans
+```
+
+### Shortest Path in  a grid with obstacle elimination
+Issue: Removing obstacles. [Problem Link](https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/)
+
+Hint: Use Breadth First Search algorithm. [video](https://www.youtube.com/watch?v=oDqjPvD54Ss&ab_channel=WilliamFiset) for reference
+
+**Implementation**
+```python
+class Solution:
+    def shortestPath(self, grid: List[List[int]], k: int) -> int:
+        q=deque()
+        m=len(grid)
+        n=len(grid[0])
+        directions=[(1,0),(-1,0),(0,-1),(0,1)]
+        q.append((0,0,k))
+        visited=set()
+        visited.add((0,0,k))
+        ans=0
+        while q:
+            for v in range(len(q)):
+                i,j,limit=q.popleft()
+                if i==m-1 and j==n-1:
+                    return ans
+                for d in directions:
+                    new_i=i+d[0]
+                    new_j=j+d[1]
+                    if 0<=new_i<m and 0<=new_j<n:
+                        if grid[new_i][new_j]==0 and (new_i,new_j,limit) not in visited:
+                            q.append((new_i,new_j,limit))
+                            visited.add((new_i,new_j,limit))
+                        elif limit>0 and (new_i,new_j,limit-1) not in visited:
+                            q.append((new_i,new_j,limit-1))
+                            visited.add((new_i,new_j,limit-1))
+            ans+=1
+        return -1
 ```
 
 ### Longest Increasing Subsequence
@@ -80,6 +150,63 @@ class Solution:
         return max_
 ```
 Future work: Above implementation takes `O(N*N)` time complexity, reduce it `O(NlogN)`. Refer this [link](https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/)
+
+### Text Justification
+Issue: Formatting the chosen letters. [Problem Link](https://leetcode.com/problems/text-justification/)
+
+Hint: Think of 1. How many words we need to form each line.
+      2. How many spaces we should insert between two words.
+      
+**Implementation**
+```python
+class Solution(object):
+    def fullJustify(self, words, maxWidth):
+        '''
+        :type words: List[str]
+        :type maxWidth: int
+        :rtype: List[str]
+        '''
+        n = len(words)
+        L = maxWidth
+        i = 0     # the index of the current word   
+        ans = [] 
+        
+        def getKwords(i):
+            k = 0 # figure out how many words can fit into a line
+            l = ' '.join(words[i:i+k]) 
+            while len(l) <= L and i+k <= n:
+                k += 1
+                l = ' '.join(words[i:i+k])
+            k -= 1 
+            return k
+        
+        
+        def insertSpace(i, k):
+            ''' concatenate words[i:i+k] into one line'''
+            l = ' '.join(words[i:i+k])       
+            if k == 1 or i + k == n:        # if the line contains only one word or it is the last line  
+                spaces = L - len(l)         # we just need to left assigned it
+                line = l + ' ' * spaces 
+            else:                           
+                spaces = L - len(l) + (k-1) # total number of spaces we need insert  
+                space = spaces // (k-1)     # average number of spaces we should insert between two words
+                left = spaces % (k-1)       # number of 'left' words, i.e. words that have 1 more space than the other words on the right side
+                if left > 0:
+                    line = ( " " * (space + 1) ).join(words[i:i+left])  # left words
+                    line += " " * (space + 1)                           # spaces between left words & right words
+                    line += (" " * space).join(words[i+left:i+k])       # right woreds
+                else: 
+                    line = (" " * space).join(words[i:i+k])
+            return line
+        
+
+        while i < n: 
+            k = getKwords(i)  
+            line = insertSpace(i, k) # create a line which contains words from words[i] to words[i+k-1]
+            ans.append(line) 
+            i += k 
+        return ans
+```
 
 ### Decode Ways
 Issue: To decode an encoded message, all the digits must be grouped then mapped back into letters using the reverse of the mapping above. [Problem link](https://leetcode.com/problems/decode-ways/)
