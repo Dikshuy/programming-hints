@@ -79,11 +79,11 @@ class Solution:
 ### Largest Rectangle in Histrogram
 Issue: [problem link](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 
-Hint: 
+Hint: Think in lines of recursion
 
 **Implementation**
 ```python
-
+# getting wrong solution currently
 ```
 
 ### Binary Tree Maximum Path Sum
