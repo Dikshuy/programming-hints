@@ -76,6 +76,16 @@ class Solution:
         return ans if has_zero else len(grid)*len(grid[0])
 ```
 
+### Largest Rectangle in Histrogram
+Issue: [problem link](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+
+Hint: 
+
+**Implementation**
+```python
+
+```
+
 ### Binary Tree Maximum Path Sum
 Issue: [Problem link](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 
