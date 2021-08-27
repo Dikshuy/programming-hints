@@ -86,6 +86,16 @@ Hint: Think in lines of recursion
 # getting wrong solution currently
 ```
 
+### Castle on the grid
+Issue: [problem link](https://www.hackerrank.com/contests/ict-1-2021/challenges/castle-on-the-grid)
+
+Hint: Use BFS
+
+**Implementation**
+```python
+
+```
+
 ### Binary Tree Maximum Path Sum
 Issue: [Problem link](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 
