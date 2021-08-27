@@ -93,7 +93,28 @@ Hint: Use BFS
 
 **Implementation**
 ```python
-
+def minimumMoves(grid, startX, startY, goalX, goalY):
+    if not grid: return 0
+    queue = deque()
+    rows = len(grid)
+    cols = len(grid[0])
+    directions=[(1,0),(-1,0),(0,-1),(0,1)]
+    queue.appendleft((startX,startY,0))
+    visited = set()
+    while queue:
+        (i,j,dist) = queue.pop()
+        new_dist = dist + 1
+        for d in directions:
+            new_i = i + d[0]
+            new_j = j + d[1]
+            while 0 <= new_i < rows and 0 <= new_j < cols and grid[new_i][new_j]!='X':
+                if (new_i, new_j) == (goalX, goalY):
+                    return new_dist
+                elif (new_i, new_j) not in visited:
+                    queue.appendleft((new_i,new_j,new_dist))
+                    visited.add((new_i,new_j))
+                new_i += d[0]
+                new_j += d[1]
 ```
 
 ### Binary Tree Maximum Path Sum
