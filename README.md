@@ -87,7 +87,7 @@ Hint: Think in lines of recursion
 ```
 
 ### Castle on the grid
-Issue: [problem link](https://www.hackerrank.com/contests/ict-1-2021/challenges/castle-on-the-grid)
+Issue: [problem link](https://www.hackerrank.com/challenges/castle-on-the-grid/problem)
 
 Hint: Use BFS
 
