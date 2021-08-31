@@ -117,6 +117,16 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
                 new_j += d[1]
 ```
 
+### City of Blinding nights
+Issue: [Problem link](https://www.hackerrank.com/challenges/floyd-city-of-blinding-lights/problem)
+
+Hint: A start algorithm
+
+**Implementation**
+```python
+
+```
+
 ### Binary Tree Maximum Path Sum
 Issue: [Problem link](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 
