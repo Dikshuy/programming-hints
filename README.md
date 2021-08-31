@@ -120,11 +120,50 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
 ### City of Blinding nights
 Issue: [Problem link](https://www.hackerrank.com/challenges/floyd-city-of-blinding-lights/problem)
 
-Hint: A start algorithm
+Hint: Bellman Ford algorithm
 
 **Implementation**
 ```python
+class Graph:
+    def __init__(self, vertices):
+        self.V = vertices 
+        self.graph = []
+ 
+    def addEdge(self, u, v, w):
+        self.graph.append([u, v, w])
+        
+    def shortest_distance(self,src,dest):
+        dist = [float("Inf")] * self.V
+        dist[src] = 0
 
+        for _ in range(self.V - 1):
+            for u, v, w in self.graph:
+                if dist[u] != float("Inf") and dist[u] + w < dist[v]:
+                        dist[v] = dist[u] + w
+        if dist[dest] == float("Inf"): print(-1)
+        else: print(dist[dest])
+        
+    
+if __name__ == '__main__':
+    road_nodes, road_edges = map(int, input().rstrip().split())
+    g = Graph(road_edges)
+    road_from = [0] * road_edges
+    road_to = [0] * road_edges
+    road_weight = [0] * road_edges
+
+    for i in range(road_edges):
+        road_from[i], road_to[i], road_weight[i] = map(int, input().rstrip().split())
+        g.addEdge(road_from[i], road_to[i], road_weight[i])
+    q = int(input().strip())
+
+    for q_itr in range(q):
+        first_multiple_input = input().rstrip().split()
+
+        x = int(first_multiple_input[0])
+
+        y = int(first_multiple_input[1])
+        
+        g.shortest_distance(x,y)
 ```
 
 ### Binary Tree Maximum Path Sum
