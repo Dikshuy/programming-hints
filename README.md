@@ -241,6 +241,16 @@ class Solution:
 ```
 Future work: Above implementation takes `O(N*N)` time complexity, reduce it `O(NlogN)`. Refer this [link](https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/)
 
+### Anagrams
+Issue: [Problem link](https://www.hackerrank.com/challenges/sherlock-and-anagrams/problem)
+
+Hint: create counter dictionary and anagrams pairs can be found by sorting the substring
+
+**Implementation**
+```python
+
+```
+
 ### Text Justification
 Issue: Formatting the chosen letters. [Problem Link](https://leetcode.com/problems/text-justification/)
 
