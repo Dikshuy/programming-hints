@@ -248,7 +248,17 @@ Hint: create counter dictionary and anagrams pairs can be found by sorting the s
 
 **Implementation**
 ```python
-
+def sherlockAndAnagrams(s):
+    dictionary= {}
+    for i in range(len(s)):
+        for j in range(i,len(s)):
+            substr  =''.join(sorted(s[i:j+1]))
+            dictionary.setdefault(substr, 0)
+            dictionary[substr] += 1
+    count = 0
+    for string in dictionary:
+        count += sum([i for i in range(dictionary[string])])
+    return count
 ```
 
 ### Text Justification
