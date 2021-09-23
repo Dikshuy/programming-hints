@@ -242,9 +242,9 @@ class Solution:
 Future work: Above implementation takes `O(N*N)` time complexity, reduce it `O(NlogN)`. Refer this [link](https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/)
 
 ### Red Knight's Shortest Path
-Issue: How to take different steps in search based on priority order[Problem link](https://www.hackerrank.com/challenges/red-knights-shortest-path/problem)
+Issue: How to take different steps in search based on priority order. [Problem link](https://www.hackerrank.com/challenges/red-knights-shortest-path/problem)
 
-Hint: 
+Hint: no idea currently, need to solve it :(
 
 **Implementation**
 ```python
