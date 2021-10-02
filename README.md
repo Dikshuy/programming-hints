@@ -581,15 +581,15 @@ class Solution:
             return ListNode(arr[0])
         return ListNode(arr[0], next=self.list_to_LL(arr[1:]))
 
-#     def reverseList(head: ListNode) -> ListNode:
-#         prev = None
-#         while head:
-#             next_node = head.next
-#             head.next = prev
-#             prev = head
-#             head = next_node
+     def reverseList(head: ListNode) -> ListNode:
+         prev = None
+         while head:
+             next_node = head.next
+             head.next = prev
+             prev = head
+             head = next_node
 
-#         return prev
+         return prev
     
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         
