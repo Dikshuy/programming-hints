@@ -241,6 +241,16 @@ class Solution:
 ```
 Future work: Above implementation takes `O(N*N)` time complexity, reduce it `O(NlogN)`. Refer this [link](https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/)
 
+### Longest Common subsequence
+Issue: Solve it efficiently using dynammic programming in O(mn) complexity. [Problem link](https://leetcode.com/problems/longest-common-subsequence/)
+
+Hint: Refer to this [blog](https://www.programiz.com/dsa/longest-common-subsequence) or this [video](https://www.youtube.com/watch?v=LAKWWDX3sGw&t=989s)
+
+**Implementation**
+```python
+
+```
+
 ### Red Knight's Shortest Path
 Issue: How to take different steps in search based on priority order. [Problem link](https://www.hackerrank.com/challenges/red-knights-shortest-path/problem)
 
