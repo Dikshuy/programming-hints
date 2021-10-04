@@ -76,6 +76,16 @@ class Solution:
         return ans if has_zero else len(grid)*len(grid[0])
 ```
 
+### Dungeon Game
+Issue: dfs application [problem link](https://leetcode.com/problems/dungeon-game/)
+
+Hint: search using DFS nad find out minimum negative value of the path
+
+**Implementation**
+```python
+
+```
+
 ### Largest Rectangle in Histrogram
 Issue: [problem link](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 
