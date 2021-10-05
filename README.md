@@ -288,7 +288,7 @@ Hint: no idea currently, need to solve it :(
 ### Array Manipulation
 Issue: [Problem link](https://www.hackerrank.com/challenges/crush/problem)
 
-Hint: Think in the means of increment and comparison with the left neighbor
+Hint: Think in lines of [prefix sum](https://www.geeksforgeeks.org/prefix-sum-array-implementation-applications-competitive-programming/)
 
 **Implementation**
 ```python
@@ -300,8 +300,20 @@ def arrayManipulation(n, queries):
    
     return max(arr)
     
-    # this solution is not optimal and runtime is exceeding, think of some alternative approach
+# this solution is not optimal and runtime is exceeding, a better approach can be followed by using the concept of prefix sum
+  
+def arrayManipulation(n, queries):
+    # Write your code here
+    arr = [0]*(n+2)
+    for i,j,k in queries:
+        arr[i] += k
+        arr[j+1] -= k
+    max_ = temp = 0
+    for val in arr:
+        temp += val
+        max_ = max(max_, temp)
     
+    return max_
 ```
 
 ### Anagrams
