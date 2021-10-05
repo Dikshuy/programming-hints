@@ -285,6 +285,25 @@ Hint: no idea currently, need to solve it :(
 
 ```
 
+### Array Manipulation
+Issue: [Problem link](https://www.hackerrank.com/challenges/crush/problem)
+
+Hint: Think in the means of increment and comparison with the left neighbor
+
+**Implementation**
+```python
+def arrayManipulation(n, queries):
+    # Write your code here
+    arr = [0]*n
+    for i in range(len(queries)):
+        arr = arr[:(queries[i][0]-1)] + [sum(x) for x in zip([queries[i][2]]*(queries[i][1]+1-queries[i][0]), arr[queries[i][0]-1:queries[i][1]])] + arr[queries[i][1]:]
+   
+    return max(arr)
+    
+    # this solution is not optimal and runtime is exceeding, think of some alternative approach
+    
+```
+
 ### Anagrams
 Issue: [Problem link](https://www.hackerrank.com/challenges/sherlock-and-anagrams/problem)
 
