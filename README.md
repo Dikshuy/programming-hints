@@ -130,7 +130,7 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
 ### City of Blinding nights
 Issue: [Problem link](https://www.hackerrank.com/challenges/floyd-city-of-blinding-lights/problem)
 
-Hint: Bellman Ford algorithm
+Hint: Bellman-Ford algorithm
 
 **Implementation**
 ```python
@@ -273,6 +273,24 @@ class Solution:
                     dp[i][j] = max(dp[i][j-1], dp[i-1][j])
        
         return dp[-1][-1]
+```
+
+❗❗❗
+### Sorted Subsegemnts
+Issue: [Problem link](https://www.hackerrank.com/challenges/sorted-subsegments/problem)
+
+Hint: no clue how to pass all the test cases
+
+**Implemenation**
+```python
+def sortedSubsegments(k, a, queries):
+    # Write your code here
+    for i,j in queries:
+        a = a[:i]+sorted(a[i:j+1])+a[j+1:]
+    
+    return a[k]
+
+# this dumb solution can only pass 10 cases, think of some better approach
 ```
 
 ### Red Knight's Shortest Path
