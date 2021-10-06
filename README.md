@@ -77,13 +77,81 @@ class Solution:
 ```
 
 ### Dungeon Game
-Issue: dfs application [problem link](https://leetcode.com/problems/dungeon-game/)
+Issue: dynamic programming [problem link](https://leetcode.com/problems/dungeon-game/)
 
-Hint: search using DFS nad find out minimum negative value of the path
+Hint: revert back from the final position
+> Basically, this problem would work from front to back, but the optimal solution for traversing from (0, 0) to (i, j) will not always give us the optimal solution for (i + 1, j) and (i, j + 1). Sometimes it is better to take the locally worse route to be able to have enough HP so that the negatives that will be encountered later are minimized.
+
+However, if we work in reverse, we can avoid this. Start from (n - 1, m - 1), where n is the number of rows, and m is the number of columns.
+In order to make the space complexity O(N), we use the concept of time iterations.
+
+at t=0, the Knight is at (0, 0)
+
+at t=1, the Knight is at (1,0) or (0,1)
+
+at t=2, the Knight is at (2,0), (1,1) or (0,2)
+
+So, we can sort of make the relation between t and an arbitrary point (i, j) that the knight may be:
+t = i + j.
+Therefore, we can iterate through all of the t values, and store them in a dp array of size n.
+
+> Note that this dp only stores values of the rows. that's because if we know the row and the current time, then we know the column j = t - i.
+
+So, we can see that there are n + m - 1 iterations of t: [0, n + m - 2], and in order to start out the dp, we go ahead and calculate dp[n-1], which corresponds to t = n + m - 2, and dungeon[n - 1][m - 1]
+
+Here's an example runthrough of the logic:
+
+            [[-2,-3,3],
+            [-5,-10,1],
+            [10,30,-5]]
+			Initialize dp with dungeon[n - 1][m - 1]
+            t = 4 i = 2, j = 2,  the -5 means we need 1 - (-5) HP = 6HP.... dp = [inf, inf, 6]
+            
+            t = 3 i = 2, j = 1   the 30 > 6, so we dont need 6 minHP anymore, minHP = 1
+            t = 3 i = 1, j = 3   the 1 < 6, so we need 1 less HP, so minHP = 6 - 1 = 5
+			...dp = [inf, 5, 1]
+            
+            t = 2 i = 2 j = 0.   the 10 > 1, so we still need 1
+            t = 2 i = 1 j = 1.   the -10 < 1 and -10 < 5 minHP = min(1, 5) - (-10) = 11
+			t = 2 i = 0 j = 2.   the  3 < 5 so minHP = 5 - 3 = 2
+			...dp = [2,11,1]
+			
+			t = 1 i = 1 j = 0    the -5 < 11, and -5 < 1  so minHP = min(1, 11) - (-5) = 6
+			t = 1 i = 0 j = 1    the -3 < 2 and -3 < 11 so minHP = min(2, 11) - (-3) = 5
+			...dp = [5, 6, inf]
+			
+			t = 0 i = 0 j = 0.   the -2 < 5 and -2 < 6 so minHP = min(5, 6) -(-2) = 7HP
+			...dp = [7,inf,inf]
+			
+			then return dp[0] = 7
 
 **Implementation**
 ```python
-
+class Solution:
+    def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
+        n = len(dungeon)
+        m = len(dungeon[0])
+        dp = [float('inf') for _ in range(len(dungeon))]
+        if dungeon[n-1][m-1] >= 0:
+            dp [n-1] = 1
+        else:
+            dp[n-1] = 1 - dungeon[n-1][m-1]
+        for t in range(n + m - 3, -1, -1):
+            dp2 = [float('inf') for _ in range(n)]
+            for i in range(max(0, t - m + 1), min(n, t + 1)):
+                j = t - i
+                if i + 1 < n:
+                    if dungeon[i][j] < dp[i + 1]:
+                        dp2[i] = dp[i + 1] - dungeon[i][j]
+                    else:
+                        dp2[i] = 1
+                if j + 1 < m:
+                    if dungeon[i][j] < dp[i]:
+                        dp2[i] = min(dp2[i], dp[i] - dungeon[i][j])
+                    else:
+                        dp2[i] = 1
+            dp = dp2
+        return dp[0]
 ```
 
 ### Largest Rectangle in Histrogram
