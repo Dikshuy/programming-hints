@@ -164,6 +164,43 @@ Hint: Think in lines of recursion
 # getting wrong solution currently
 ```
 
+### Word Search 
+Issue: word search in a grid. [problem link](https://leetcode.com/problems/word-search/)
+
+Hint: use DFS similar to problem #1
+
+**Implementation**
+```python
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        if not board or not word: return False
+        start = 0
+        traced = set()
+        
+        def dfs(start, i, j, traced):
+            dirs = [(0,1), (1,0), (-1,0), (0,-1)]
+
+            for dx, dy in dirs:
+                new_x = i+dx
+                new_y = j+dy
+                if 0 <= new_x < len(board) and 0 <= new_y < len(board[0])  and (new_x,new_y) not in traced and board[new_x][new_y] == word[start]:
+                    if start == len(word)-1:    return True
+
+                    traced.add((new_x, new_y))
+                    if dfs(start+1, new_x, new_y, traced):  return True
+                    else:   traced.remove((new_x, new_y))
+            return
+        
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                traced = set()
+                if board[i][j] == word[start]:			
+                    traced.add((i,j))
+                    if start == len(word) -1:   return True
+                    if dfs(start+1, i, j, traced): return True
+        return False        
+```
+
 ### Castle on the grid
 Issue: [problem link](https://www.hackerrank.com/challenges/castle-on-the-grid/problem)
 
