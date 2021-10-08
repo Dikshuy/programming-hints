@@ -1157,3 +1157,12 @@ int n;
 Issue: sort the dictionary by values. [link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/608/week-1-july-1st-july-7th/3804/)
 
 Hint: Use counter function from collections library and then `Counter(arr).most_common` to sort the counter dicitonary according to the values or can use this: `sorted(Counter(arr).items(), key=lambda x: x[1], reverse=True)`
+
+-----------
+TEST1: 
+
+Eightfold AI:
+
+* que1: DFS with special jumps
+* que2: two pointer with nearest difference between 2 numbers
+* que3: kill 2/3 in a stack to find the best and worst time
