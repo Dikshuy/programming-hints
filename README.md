@@ -164,22 +164,22 @@ Hint: Think in lines of recursion
 # getting wrong solution currently
 ```
 
-### Word Search 
-Issue: word search in a grid. [problem link](https://leetcode.com/problems/word-search/)
+### Word Search  II
+Issue: search a lists of words in a grid. [problem link](https://leetcode.com/problems/word-search-ii/)
 
 Hint: use DFS similar to problem #1
 
 **Implementation**
 ```python
 class Solution:
-    def exist(self, board: List[List[str]], word: str) -> bool:
-        if not board or not word: return False
-        start = 0
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        if not board or not words: return False
         traced = set()
+        
         
         def dfs(start, i, j, traced):
             dirs = [(0,1), (1,0), (-1,0), (0,-1)]
-
+            print(start)
             for dx, dy in dirs:
                 new_x = i+dx
                 new_y = j+dy
@@ -191,14 +191,28 @@ class Solution:
                     else:   traced.remove((new_x, new_y))
             return
         
-        for i in range(len(board)):
-            for j in range(len(board[0])):
-                traced = set()
-                if board[i][j] == word[start]:			
-                    traced.add((i,j))
-                    if start == len(word) -1:   return True
-                    if dfs(start+1, i, j, traced): return True
-        return False        
+        ls = []
+        for word in words:
+            start = 0
+            for i in range(len(board)):
+                for j in range(len(board[0])):
+                    traced = set()
+                    if board[i][j] == word[start]:			
+                        traced.add((i,j))
+                        if start == len(word) -1:
+                            ls.append(word)
+                            continue
+                        if dfs(start+1, i, j, traced): 
+                            ls.append(word)
+        
+        final = []
+        for i in ls:
+            if i not in final:
+                final.append(i)
+        
+        return final  
+	
+# need to improve code, exceeding time limit for few cases
 ```
 
 ### Castle on the grid
