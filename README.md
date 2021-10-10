@@ -212,7 +212,7 @@ class Solution:
         
         return final  
 	
-# need to improve code, exceeding time limit for few cases
+# need to improve code, exceeding time limit for few cases (look out for TRIE)
 ```
 
 ### Castle on the grid
