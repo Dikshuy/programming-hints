@@ -651,6 +651,7 @@ class Solution:
                 
         return ans
 ```
+
 ### Merge k Sorted Linked Lists
 Issue: linked lists and have to return as a linked list. [link](https://leetcode.com/problems/merge-k-sorted-lists/)
 
@@ -1041,6 +1042,7 @@ string organizingContainers(vector<vector<int>> container){
 
 }
 ```
+
 ### Almost sorted:
 Issue of the problem: Checking whether a vector can be sorted using reverse or swap operation. [link](https://www.hackerrank.com/challenges/almost-sorted/problem?isFullScreen=true)
 
@@ -1166,7 +1168,7 @@ int n;
     else
         cout<<"No";
 ```
-No updates for today
+
 ### Reduce array size to half
 Issue: sort the dictionary by values. [link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/608/week-1-july-1st-july-7th/3804/)
 
