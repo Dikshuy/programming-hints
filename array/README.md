@@ -25,3 +25,22 @@ class Solution:
             end += 1
         return [-1]
 ```
+
+### Kadane's algorithm / Max sum of contiguous subarray
+
+Issue: [problem link](https://practice.geeksforgeeks.org/problems/kadanes-algorithm-1587115620/1#)
+
+Hint: use DP
+
+**Implementation**
+```python
+class Solution:
+    def maxSubArraySum(self,arr,N):
+        ##Your code here
+        s = 0
+        res = []
+        for i in arr:
+            s = max(s+i, i)
+            res.append(s)
+        return max(res)
+```
