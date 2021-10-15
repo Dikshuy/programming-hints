@@ -157,11 +157,31 @@ class Solution:
 ### Largest Rectangle in Histrogram
 Issue: [problem link](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 
-Hint: Think in lines of recursion
+Hint: if largest rectangle contains atleast 1 bar in full then, if we find areas of all largest recatangle for each bar included full then we can find the max rectangle area. thus, we just need to find the largest rectangle including each bar one by one and take the max of all the max areas for each bar. refer this [video](https://www.youtube.com/watch?v=vcv3REtIvEo)
 
 **Implementation**
 ```python
-# getting wrong solution currently
+# Brute Force method
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        area = []
+        n=len(heights)
+        for i in range(n):
+            l = 0
+            r = 0
+            for j in range(i-1, -1, -1):
+                if heights[j] < heights[i]:
+                    break
+                l -= 1
+            for k in range(i+1, n):
+                if heights[k] < heights[i]:
+                    break
+                r += 1
+            a = (r-l+1)*heights[i]
+            area.append(a)
+            
+        return max(area)
+
 ```
 
 ### Word Search  II
