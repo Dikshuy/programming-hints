@@ -171,6 +171,8 @@ Hint: use DFS similar to problem #1
 
 **Implementation**
 ```python
+### DFS Approach
+
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         if not board or not words: return False
@@ -212,7 +214,75 @@ class Solution:
         
         return final  
 	
-# need to improve code, exceeding time limit for few cases (look out for TRIE)
+# we can improve this code by optmizing DFS using **hash maps**, as we will be able te reduce the DFS start point to initiate a search
+
+# TRIE + DFS Approach
+
+class TrieNode:
+    def __init__(self):
+        self.children = [None] * 26
+        self.end = False
+    
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        
+        self.maxWords = len(words)
+        
+        # Create Trie root
+        self.root = TrieNode()
+        
+        # Add words to Trie
+        for word in words:
+            self.add(word)
+            
+        self.res = set()
+        self.r = len(board)
+        if self.r == 0:
+            return list(res)
+        self.c = len(board[0])
+        if self.c == 0:
+            return list(res)
+        
+        self.visited = [[False] * self.c for _ in range(self.r)]
+        
+        for i in range(self.r):
+            for j in range(self.c):
+                idx = ord(board[i][j]) - 97
+                if self.root.children[idx]:
+                    self.visited[i][j] = True
+                    self.dfs(board, i, j, board[i][j], self.root.children[idx])
+                    self.visited[i][j] = False
+                
+        return list(self.res)
+    
+    def dfs(self, board, i, j, path, trieNode):
+        if trieNode.end:
+            self.res.add(path)
+        if len(self.res) == self.maxWords:
+            return
+
+        for x,y in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            x_1, y_1 = i + x, j + y 
+            if self.isValid(x_1, y_1):
+                idx = ord(board[x_1][y_1]) - 97
+                if trieNode.children[idx]:
+                    self.visited[x_1][y_1] = True
+                    self.dfs(board, x_1, y_1, path + board[x_1][y_1], trieNode.children[idx])
+                    self.visited[x_1][y_1] = False
+                
+    def isValid(self, i, j):
+        return i >= 0 and j >= 0 and i < self.r and j < self.c and not self.visited[i][j]
+    
+    def add(self, word):
+        tmp = self.root
+        for w in word:
+            c = ord(w) - 97
+            if not tmp.children[c]:
+                tmp.children[c] = TrieNode()
+            tmp = tmp.children[c]
+        tmp.end = True
+
+NOTE: both TRIE+DFS and HM+DFS will have same time complexity
 ```
 
 ### Castle on the grid
