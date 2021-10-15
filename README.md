@@ -254,7 +254,21 @@ NOTE: this problem can be solved by valley-peak approach if there is no cooldown
 
 **Implementation**
 ```python
-
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if len(prices) <= 1: return 0
+        n = len(prices)
+        noStock, inHand, sold = [0]*n, [0]*n, [0]*n
+        
+        noStock[0] = 0
+        inHand[0] = -prices[0]
+        sold[0] = 0
+        for i in range(1, n):
+            noStock[i] = max(noStock[i-1], sold[i-1])
+            inHand[i] = max(inHand[i-1], noStock[i-1]-prices[i])
+            sold[i] = inHand[i] + prices[i]
+            
+        return max(noStock[n-1], sold[n-1])
 ```
 
 ### City of Blinding nights
