@@ -248,7 +248,9 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
 ### Best Time to Buy and Sell Stock with Cooldown
 Issue: How to solve with cooldown condition imposed. [problem link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
 
-Hint: One easy approach will be to use recursion but that will increase oue time complexity to O(2^N). A better approach will be to define 3 different states when we have our stocks in hand, when we don't have any stock and when we want to sell that. There will be certain possibilites to arrive at these states from previous day. For example: we can come to no stocks in hand if the previous day, we sell any stock or we don't have any stock the last day as well. we will take the max of these two. Now, at the end we will just compare the last element of the no stock and sell arrays to find out the maximum profit we can generate. Refer this [video](https://www.youtube.com/watch?v=4wNXkhAky3s) for better understanding.
+Hint: One easy approach will be to use recursion but that will increase oue time complexity to O(2^N). A better approach will be to define 3 different states when we have our stocks in hand, when we don't have any stock and when we want to sell that. There will be certain possibilites to arrive at these states from previous day. For example: we can come to no stocks in hand if the previous day, we sell any stock or we don't have any stock the last day as well. we will take the max of these two. Basically build a **state transition diagram**. Now, at the end we will just compare the last element of the no stock and sell arrays to find out the maximum profit we can generate. Refer this [video](https://www.youtube.com/watch?v=4wNXkhAky3s) for better understanding.
+
+NOTE: this problem can be solved by valley-peak approach if there is no cooldown period. we just need to find out the local minima and maxima and find out the difference between those to find out the max period. [problem link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)
 
 **Implementation**
 ```python
