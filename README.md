@@ -185,6 +185,42 @@ class Solution:
 # but this solution is not optimal as its time complexity is O(N^2)
 # Better Approach using stack
 
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        n=len(heights)		
+        # next smaller right side
+        def sr(heights,n):
+            stack=[0]
+            ans=[n] *n
+            for i in range(1,n):
+                while stack and heights[stack[-1]]>=heights[i]:
+                    x=stack.pop()
+                    ans[x]=i
+                stack.append(i)
+            return ans
+
+        # next smaller left side
+        def sl(heights,n):
+            stack=[n-1]
+            ans=[-1] *n
+            for i in range(n-2,-1,-1):
+                while stack and heights[stack[-1]]>heights[i]:
+                    x=stack.pop()
+                    ans[x]=i
+                stack.append(i)
+            return ans
+
+        la=sl(heights,n)
+        ra=sr(heights,n)
+        width=[]
+
+        for i in range(n):
+            width.append(ra[i]-la[i]-1)
+        ans=0
+
+        for i in range(n):
+            ans=max(ans,width[i]*heights[i])
+        return ans
 ```
 
 ### Word Search  II
