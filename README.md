@@ -367,11 +367,28 @@ class Solution:
 ### Best Time to Buy and Sell Stock III
 Issue: only 2 transactions allowed. [problem link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/)
 
-Hint: Use divide and conquer approach. divide the array in two parts and find individual local minima and maxima
+Hint: Use divide and conquer approach. divide the array in two parts and find individual local minima and maxima. refer this [video](https://www.youtube.com/watch?v=37s1_xBiqH0)
 
 **Implementation**
 ```python
-
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        if n==0: return 0
+        left = [0]*n
+        right = [0]*n
+        l_min = prices[0]
+        r_max = prices[n-1]
+        for i in range(1, n):
+            left[i] = max(left[i-1], prices[i]-l_min)
+            l_min = min(l_min, prices[i])
+        for i in range(n-2, -1, -1):
+            right[i] = max(right[i+1], r_max-prices[i])
+            r_max = max(r_max, prices[i])
+        profit = right[0]
+        for i in range(1, n):
+            profit = max(profit, left[i-1]+right[i])
+        return profit
 ```
 
 ### City of Blinding nights
