@@ -181,6 +181,9 @@ class Solution:
             area.append(a)
             
         return max(area)
+	
+# but this solution is not optimal as its time complexity is O(N^2)
+# Better Approach using stack
 
 ```
 
@@ -359,6 +362,16 @@ class Solution:
             sold[i] = inHand[i] + prices[i]
             
         return max(noStock[n-1], sold[n-1])
+```
+
+### Best Time to Buy and Sell Stock III
+Issue: only 2 transactions allowed. [problem link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/)
+
+Hint: Use divide and conquer approach. divide the array in two parts and find individual local minima and maxima
+
+**Implementation**
+```python
+
 ```
 
 ### City of Blinding nights
