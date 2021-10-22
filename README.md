@@ -366,7 +366,43 @@ class Solution:
         if stones == 0: return "Tie"
         return "Bob"
 	
-# dynamic programming approach
+# dynamic programming approaches
+# 1. top down (memoization) approach 
+
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -> str:
+        def rec(stone, i):
+            if i >= len(stone): return 0
+            if dp[i]!= -1: return dp[i]
+            ans = -math.inf
+            ans = max(ans, stone[i] - rec(stone, i+1))
+            if i+1 < len(stone): ans = max(ans, stone[i]+stone[i+1] - rec(stone, i+2))
+            if i+2 < len(stone): ans = max(ans, stone[i]+stone[i+1]+stone[i+2] - rec(stone, i+3))
+            dp[i] = ans
+            return dp[i] 
+        dp = [-1]*50000
+        stones = rec(stoneValue, 0)
+        if stones > 0: return "Alice"
+        if stones == 0: return "Tie"
+        return "Bob"
+
+# 2. bottom up (tabulation approach) (Fastest)
+
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -> str:
+        n = len(stoneValue)
+        stoneValue += [0, 0, 0]
+
+        dp = [0] * (n + 3)
+        for i in range(n)[::-1]:
+            x = stoneValue[i]
+            y = x + stoneValue[i + 1]
+            z = y + stoneValue[i + 2]
+            dp[i] = max(x - dp[i + 1], y - dp[i + 2], z - dp[i + 3])
+
+        if dp[0] > 0: return 'Alice'
+        if dp[0] < 0: return 'Bob'
+        return 'Tie'
 ```
 
 ### Castle on the grid
