@@ -344,6 +344,31 @@ class Solution:
 NOTE: both TRIE+DFS and HM+DFS will have same time complexity
 ```
 
+### Stone Game -III
+Issue: pick max of 3 stones to win the game given optimal step chosen [problem link](https://leetcode.com/problems/stone-game-iii/)
+
+Hint: use DP. refer to this [video](https://www.youtube.com/watch?v=HsY3jFyaePU)
+
+**Implementation**
+```python
+# recursive solution
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -> str:
+        def rec(stone, i):
+            if i >= len(stone): return 0
+            ans = -math.inf
+            ans = max(ans, stone[i] - rec(stone, i+1))
+            if i+1 < len(stone): ans = max(ans, stone[i]+stone[i+1] - rec(stone, i+2))
+            if i+2 < len(stone): ans = max(ans, stone[i]+stone[i+1]+stone[i+2] - rec(stone, i+3))
+            return ans
+        stones = rec(stoneValue, 0)
+        if stones > 0: return "Alice"
+        if stones == 0: return "Tie"
+        return "Bob"
+	
+# dynamic programming approach
+```
+
 ### Castle on the grid
 Issue: [problem link](https://www.hackerrank.com/challenges/castle-on-the-grid/problem)
 
