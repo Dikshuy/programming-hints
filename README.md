@@ -548,6 +548,47 @@ Hints:
 
 **Implementation**
 ```python
+'''
+# Sample code to perform I/O:
+
+name = input()                  # Reading input from STDIN
+print('Hi, %s.' % name)         # Writing output to STDOUT
+
+# Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+'''
+T = int(input())
+for _ in range(T):
+    N,K = map(int, input().split())
+
+    A = input()
+    B = A
+    i = 1
+    x = N
+    while i<N:
+        s = ''
+        if A[i] == '1' and A[i-1] != '1':
+            s = A[i:N] + A[0:i]
+        if s > B:
+            B = s
+            x = i 
+        i += 1
+    
+    # KMP algorithm can be used to find out period of string
+    # generate pi table 
+    pi = [0 for _ in range(N)]
+    for i in range(1, N):
+        j = pi[i-1]
+        while j > 0 and B[i] != B[j]:
+            j = pi[j-1]
+        if B[i] == B[j]:
+            j += 1
+        pi[i] = j
+
+    period = N - pi[N-1]
+    ans = (K-1)*period + 1*x
+    if x == N:  print((K-1)*period)
+    else:   print(ans)
+
 ```
 
 ### Binary Tree Maximum Path Sum
