@@ -537,6 +537,19 @@ if __name__ == '__main__':
         g.shortest_distance(x,y)
 ```
 
+### Cyclic Shift / Maximum binary number
+Issue: reduce time complecity of cyclic shift. [problem link](https://www.hackerearth.com/practice/data-structures/advanced-data-structures/suffix-arrays/practice-problems/algorithm/maximum-binary-number-2980dd7b/)
+
+Hints: 
+
+1. rotate only if (i)th element is '1' and (i-1)th element is not '1'. this will always result in max possible number and no of shifts can also be reduced
+
+2. find out the period of the string using KMP algorithm. create a pi table and period = len(string) - pi[n-1]. 
+
+**Implementation**
+```python
+```
+
 ### Binary Tree Maximum Path Sum
 Issue: [Problem link](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 
