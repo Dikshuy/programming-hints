@@ -48,3 +48,24 @@ class Solution:
                             visited.add((new_i,new_j))
             ans += 1
 ```
+
+### KMP
+```python 
+# time complexity = O(N)
+# this algorithm is used for pattern matching or finding out the period of the string(prefix function). 
+# period means if we perform cyclic rotations then after how many shifts we can get our value back
+
+# pattern matching 
+# period check using prefix function approach
+N = len(arr)
+pi = [0 for _ in range(N)]
+for i in range(1, N):
+    j = pi[i-1]
+    while j > 0 and arr[i] != arr[j]:
+        j = pi[j-1]
+    if arr[i] == arr[j]:
+        j += 1
+    pi[i] = j
+
+    period = N - pi[N-1]
+```
