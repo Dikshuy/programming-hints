@@ -113,3 +113,28 @@ for i in range(1, N):
 
     period = N - pi[N-1]
 ```
+
+### Topological Sort
+```python
+# pseudocode
+
+function dfs(i, at, V, ordering, graph):
+    V[at] = true
+    edges = graph.getEdgesOutFromNode(at)
+    for edge in edges:
+        if V[edge.to] == false:
+            i = dfs(i, edge.to, V, ordering, graph)
+           
+     ordering[i] = at
+     return i-1
+     
+function topsort(graph):
+    N = graph.numberOfNodes()
+    V = [false, ..., false]    # length N
+    ordering = [0, ... , 0]    # length N
+    i = N-1
+    for at in range(N):
+        if V[at] == false:
+            i = dfs(i, at, V, ordering, graph)
+    return ordering
+```
