@@ -591,6 +591,44 @@ for _ in range(T):
 
 ```
 
+### Largest prime number from subsequence
+Issue: find out the largest Prime Number possible from a subsequence of a Binary String
+
+Hint: find out all the subsequences and store if their int form is prime
+
+**Implementation**
+```python
+arr = []
+
+def isPrime(x):
+    if x <= 1: return False
+    for i in range(2, x+1):
+        if i*i > x: break
+        if x%i == 0: return False
+    return True
+
+# obtaining all substrings
+
+def subsequence(input, output):
+    if len(input) == 0:
+        if output != '' and isPrime(int(output,2)):
+                arr.append(output)
+        return
+    subsequence(input[1:], output+input[0])
+    subsequence(input[1:], output)
+ 
+
+if __name__ == '__main__':
+    s = input()
+    out = ""
+    subsequence(s, out)
+    max_ = 0
+    for i in arr:
+        max_ = max(max_, int(i,2))
+    if max_ <= 1:  print(-1)
+    else:   print(max_)
+```
+
 ### Binary Tree Maximum Path Sum
 Issue: [Problem link](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 
@@ -1011,7 +1049,7 @@ class Solution:
         return prev.next
 ```
 
-### Maximum length of repeated subarray
+### Maximum length of the repeated subarray
 Issue: reduce time complexity using DP. [link](https://leetcode.com/explore/challenge/card/july-leetcoding-challenge-2021/609/week-2-july-8th-july-14th/3807/)
 
 Hint: Maintain a new 2d array of zeros and update whenever you sth common.
