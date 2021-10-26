@@ -154,10 +154,85 @@ class Solution:
         return dp[0]
 ```
 
-### Largest Rectangle in Histrogram
+### Shortest path in DAG | Topological sort
+Issue: there are n planets and n teams are going to complete in the tournament which are numbered from 1 to n, the tournament is going to be hosted on the planet number n. the planets are interconnected via teleportation gateways. the team from planet i can teleport directly to planets i+distance[i] and i-distance[i], only proviede that planets with those numbers exist. one direct teleportation lasts 1 day and teleportation channels have unlimited capacity which means that at any time many teams can be passing from one planet to another. Figure out how many days before the tournament should hey leave from their home planets so they reach just in time. if there is a team which can't reach planet n, the answer for that team would be -1. last question of [problem link](https://drive.google.com/file/d/1JWhfROT25kgXA85OB_nhPkALmzR0XBJc/view)
+
+Hint: find cost-of-shortest-path-in-dag-using-one-pass-of-bellman-ford. set N-1 as the source and perform top sort from there. [blog](https://www.techiedelight.com/cost-of-shortest-path-in-dag-using-one-pass-of-bellman-ford/)
+
+```python
+import sys
+
+class Edge:
+    def __init__(self, source, dest, weight):
+        self.source = source
+        self.dest = dest
+        self.weight = weight
+
+class Graph:
+    def __init__(self, edges, N):
+        self.adjList = [[] for _ in range(N)]
+        for edge in edges:
+            self.adjList[edge.source].append(edge)
+ 
+def DFS(graph, v, discovered, departure, time):
+    discovered[v] = True
+
+    for edge in graph.adjList[v]:
+        u = edge.dest
+        if not discovered[u]:
+            time = DFS(graph, u, discovered, departure, time)
+    departure[time] = v
+    time = time + 1
+ 
+    return time
+ 
+def findShortestDistance(graph, source, N):
+    departure = [-1] * N
+    discovered = [False] * N
+    time = 0
+    for i in range(N):
+        if not discovered[i]:
+            time = DFS(graph, i, discovered, departure, time)
+ 
+    cost = [sys.maxsize] * N
+    cost[source] = 0
+    for i in reversed(range(N)):
+        v = departure[i]
+        for e in graph.adjList[v]:
+            u = e.dest
+            w = e.weight
+            if cost[v] != sys.maxsize and cost[v] + w < cost[u]:
+                cost[u] = cost[v] + w
+    result = []
+    for i in range(N - 1):
+        if cost[i] == sys.maxsize:  result.append(-1)
+        else:   result.append(cost[i])
+    
+    return result
+ 
+if __name__ == '__main__':
+    N = int(input())
+    distance = []
+    for _ in range(N):  distance.append(int(input()))
+    edges = []
+    for i in range(N):
+        if i+distance[i] < N:
+            edges.append((Edge(i+distance[i], i, 1)))
+        if i-distance[i] >= 0:
+            edges.append((Edge(i-distance[i], i, 1)))
+    
+    graph = Graph(edges, N)
+    source = N-1
+    
+    res = findShortestDistance(graph, source, N)
+    res.append(0)
+    print(res)
+```
+
+### Largest Rectangle in Histogram
 Issue: [problem link](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 
-Hint: if largest rectangle contains atleast 1 bar in full then, if we find areas of all largest recatangle for each bar included full then we can find the max rectangle area. thus, we just need to find the largest rectangle including each bar one by one and take the max of all the max areas for each bar. refer this [video](https://www.youtube.com/watch?v=vcv3REtIvEo)
+Hint: if the largest rectangle contains at least 1 bar in full then, if we find areas of all largest rectangle for each bar included full then we can find the max rectangle area. thus, we just need to find the largest rectangle including each bar one by one and take the max of all the max areas for each bar. refer this [video](https://www.youtube.com/watch?v=vcv3REtIvEo)
 
 **Implementation**
 ```python
