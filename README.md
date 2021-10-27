@@ -612,6 +612,16 @@ if __name__ == '__main__':
         g.shortest_distance(x,y)
 ```
 
+### Poisonous Plants
+Issue: [problem link](https://www.hackerrank.com/challenges/poisonous-plants/problem)
+
+Hints:
+
+**Implementation**
+```pythpn
+
+```
+
 ### Cyclic Shift / Maximum binary number
 Issue: reduce time complecity of cyclic shift. [problem link](https://www.hackerearth.com/practice/data-structures/advanced-data-structures/suffix-arrays/practice-problems/algorithm/maximum-binary-number-2980dd7b/)
 
