@@ -419,6 +419,16 @@ class Solution:
 NOTE: both TRIE+DFS and HM+DFS will have same time complexity
 ```
 
+### Rotting Oranges
+Issue: [problem link](https://leetcode.com/problems/rotting-oranges/)
+
+Hint: use BFS to explore through the entire grid
+
+**Implementation**
+```python
+
+```
+
 ### Stone Game -III
 Issue: pick max of 3 stones to win the game given optimal step chosen [problem link](https://leetcode.com/problems/stone-game-iii/)
 
