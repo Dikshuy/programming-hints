@@ -511,11 +511,12 @@ class Solution:
 
 ### Unique Path problem set
 
-#### Minimum Path Sum
+##### Minimum Path Sum
 Issue: minimum path covered [problem link](https://leetcode.com/problems/minimum-path-sum/)
 
 Hint: Use DP: `MinCost(i,j) = min(MinCost(i-1,j),MinCost(i,j-1)) + Cost[i][j]`
 
+**Implementation**
 ```python
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
@@ -532,11 +533,36 @@ class Solution:
         return minCost[len(grid)-1][len(grid[0])-1]
 ```
 
-#### Unique Path II
-Issue: [problem link](https://leetcode.com/problems/unique-paths-ii/)
+##### Unique Path II
+Issue: path with obstacles [problem link](https://leetcode.com/problems/unique-paths-ii/)
 
 Hint: Use DP
 
+**Implementation**
+```python
+class Solution:
+    def uniquePathsWithObstacles(self, grid: List[List[int]]) -> int:
+        if grid[0][0] == 1: return 0
+        
+        numWays = [[None for _ in range(len(grid[0]))] for _ in range(len(grid))]
+
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1: numWays[i][j] = 0
+                elif i == 0 and j == 0:   numWays[i][j] = 1
+                elif i == 0:  numWays[i][j] = numWays[i][j-1]
+                elif j == 0:  numWays[i][j] = numWays[i-1][j]
+                else:   numWays[i][j] = numWays[i][j-1] + numWays[i-1][j]
+        
+        return numWays[-1][-1]
+```
+
+##### Unique Path-III
+Issue: [problem link](https://leetcode.com/problems/unique-paths-iii/)
+
+Hint:
+
+**Implementation**
 ```python
 
 ```
