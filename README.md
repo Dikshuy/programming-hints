@@ -558,13 +558,49 @@ class Solution:
 ```
 
 ##### Unique Path-III
-Issue: [problem link](https://leetcode.com/problems/unique-paths-iii/)
+Issue: number of 4-directional walks from the starting square to the ending square, that walk over every non-obstacle square exactly once. [problem link](https://leetcode.com/problems/unique-paths-iii/)
 
-Hint:
+Hint: Use DFS 
 
 **Implementation**
 ```python
-
+class Solution:
+    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+        non_obstacle=0
+        for row in grid:
+            non_obstacle+=row.count(0)
+            
+        self.ans=0
+        R=len(grid)
+        C=len(grid[0])
+        
+        start_x,start_y=(0,0)
+        for i in range(R):
+            for j in range(C):
+                if grid[i][j]==1:
+                    start_x,start_y=(i,j)
+                    break
+                    
+        def helper(r,c,count):
+            if 0<=r<R and 0<=c<C and grid[r][c]>=0:
+                if grid[r][c]==2:
+                    #if we reach at 2 we will check if we have covered all non-obstacle
+                    if count==non_obstacle+1:
+                        self.ans+=1
+                    return
+                
+                # replacing current grid[i][j] by some other number so that we don't come back at this during recursion
+                temp=grid[r][c]
+                grid[r][c]=-2
+                
+                for nr,nc in [(1,0),(0,1),(0,-1),(-1,0)]:
+                    helper(nr+r,nc+c,count+1)
+                    
+                grid[r][c]=temp
+                
+        helper(start_x,start_y,0)
+        return self.ans
+        
 ```
 
 ### Castle on the grid
