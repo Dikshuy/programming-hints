@@ -1319,6 +1319,79 @@ class Solution:
         return res 
 ```
 
+### Arrange consonants and vowels in a linked list
+Issue: maintain the same order [problem link](https://practice.geeksforgeeks.org/problems/arrange-consonants-and-vowels/1)
+
+Hint: look for the point where we can cut the LL and how to retreive the other parts
+
+**Implementation**
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def isVowel(x):
+    return (x == 'a' or x == 'e' or x == 'i' or x == 'o' or x == 'u' or x == 'A' or x == 'E' or x == 'I' or x == 'O' or x == 'U')
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def push(self, new_data):
+        new_node = Node(new_data)
+        new_node.next = self.head
+        self.head = new_node
+
+    def printList(self):
+        temp = self.head
+        while (temp):
+            print (temp.data)
+            temp = temp.next
+
+    def arrange(self,head):
+        new = self.head
+        latest_vowel = None
+        curr = self.head
+
+        if self.head == None:    return None
+
+        if isVowel(self.head.data):
+            latest_vowel = self.head
+        else:
+            while curr.next != None and not isVowel(self.head.data):
+                curr = curr.next
+            if curr.next == None:   
+                return self.head
+            latest_vowel = new = curr.next
+            curr.next = curr.next.next
+            latest_vowel.next = self.head
+
+        while curr != None and curr.next != None:
+            if isVowel(curr.next.data):
+                if curr == latest_vowel:
+                    latest_vowel = curr = curr.next
+                else:
+                    temp = latest_vowel.next
+                    latest_vowel.next = curr.next
+                    latest_vowel = latest_vowel.next
+                    curr.next = curr.next.next
+                    latest_vowel.next = temp
+            else:
+                curr = curr.next
+        return new
+    
+
+ls = ['a','b','c','e','d','o','x','i']
+llist = LinkedList()
+
+for i in ls[::-1]:
+    llist.push(i)
+
+llist.arrange(llist)
+llist.printList()
+```
+
 ### Adding Two numbers
 Issue: Numbers are stored in linked lists, so how to access them properly. [link](https://leetcode.com/problems/add-two-numbers/)
 
