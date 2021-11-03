@@ -30,21 +30,15 @@ Hint: Use recursion call stack
 
 **Implementation**
 ```python
-class Solution(object):
-    def isValidBST(self, root):
-        """
-        :type root: TreeNode
-        :rtype: bool
-        """
-        return self.validate(root, float('-inf'), float('inf'))
-
-    def validate(self, tree, minimum, maximum):
-        if tree == None: return True
-
-        # validate
-        if tree.val >= maximum or tree.val <= minimum: return False
-
-        return self.validate(tree.left, minimum=minimum, maximum=tree.val) and self.validate(tree.right, minimum=tree.val, maximum=maximum)
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        def search(root, lower, upper):
+            if not root: return True
+            if lower < root.val < upper:
+                return search(root.left, lower, root.val) and search(root.right, root.val, upper)
+            else:
+                return False
+        return search(root, lower=float('-inf'), upper=float('inf'))
 ```
 
 ### Symmetric Tree
