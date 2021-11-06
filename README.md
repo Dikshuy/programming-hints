@@ -298,6 +298,29 @@ class Solution:
         return ans
 ```
 
+### Maximum profit in job scheduling
+Issue: max profit in overlapping intervals. [problem link](https://leetcode.com/problems/maximum-profit-in-job-scheduling/)
+
+Hint: use sort and binary search to reduce the time complexity to O(NlogN)
+
+**Implementation**
+```python
+class Solution:
+    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
+        N = len(startTime)
+        jobs = list(zip(startTime, endTime, profit))
+        jobs.sort()
+        startTime.sort()
+        
+        @lru_cache(None)
+        def rec(i):
+            if i==N:    return 0
+            j = bisect_left(startTime, jobs[i][1])
+            return max(jobs[i][2]+rec(j), rec(i+1))
+        
+        return rec(0)
+```
+
 ### Word Search  II
 Issue: search a lists of words in a grid. [problem link](https://leetcode.com/problems/word-search-ii/)
 
