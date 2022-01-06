@@ -298,6 +298,17 @@ class Solution:
         return ans
 ```
 
+### Burst Balloons
+Issue: maximum coins you can collect by bursting the balloons in `nums[i - 1] * nums[i] * nums[i + 1]` [problem link](https://leetcode.com/problems/burst-balloons/)
+
+Hint: Think of a sub-problem. Break the problem into left and right portions and make a dynamic programming.
+`num[left-1]*val*num[right+1] + dp[i+1][right] + dp[left][i-1]`. Refer this [video](https://www.youtube.com/watch?v=VFskby7lUbw)
+
+**Implementation**
+```python
+
+```
+
 ### Maximum profit in job scheduling
 Issue: max profit in overlapping intervals. [problem link](https://leetcode.com/problems/maximum-profit-in-job-scheduling/)
 
