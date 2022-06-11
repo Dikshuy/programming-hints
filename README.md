@@ -637,6 +637,32 @@ class Solution:
         
 ```
 
+### Minimum operations to reduce x to zero
+Issue: [problem link](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/)
+
+Hint: Think in reverse; instead of finding the minimum prefix + suffix, find the maximum subarray. Basically find the maximum length of subarray having sum equal to sum of original array - x. To so this, use sliding window approach. 
+
+**Implementation**
+```python
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+        arrSum = sum(nums)
+        maxLen = -math.inf
+        currSum = 0
+        target = arrSum - x
+        i = 0
+        for j in range(0, len(nums)):
+            currSum += nums[j]
+            while currSum > target and i <= j:
+                currSum -= nums[i]
+                i += 1
+            if currSum == target:
+                maxLen = max(maxLen, j-i+1)
+            
+        if maxLen == -math.inf:  return -1
+        else:   return len(nums) - maxLen
+```
+
 ### Castle on the grid
 Issue: [problem link](https://www.hackerrank.com/challenges/castle-on-the-grid/problem)
 
