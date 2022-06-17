@@ -1,5 +1,7 @@
 ## Hints and implemenation of some leetcode and hackerrank problems
 
+Number of problems: **50** :cowboy_hat_face: 
+
 ### Longest Increasing Path in a matrix
 Issue: Optimal way of searching using DFS(Depth First Search algorithm). [Problem link](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/)
 
