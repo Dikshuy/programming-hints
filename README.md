@@ -229,6 +229,44 @@ if __name__ == '__main__':
     print(res)
 ```
 
+### Binary Tree Cameras
+Issue: [problem link](https://leetcode.com/problems/binary-tree-cameras/)
+
+Hint: Consider everything in a form of array, let's take (0,0,0,0,0,0) and let's say M is for monitored index and C is for index with camera installed. 
+The best combination will be (M,C,M,M,C,M). Hence, we just need to keep track of a node beeing monitored or not. Also take care of the corner case in which root node is monitored or not. refer this [video](https://www.youtube.com/watch?v=JnJ8524Hpy4)
+
+**Implementation**
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def minCameraCover(self, root: Optional[TreeNode]) -> int:
+        self.ans = 0
+        def dfs(node):
+            if not node:
+                return False, True
+            c1,m1 = dfs(node.left)
+            c2,m2 = dfs(node.right)
+            
+            cam, monitor = False, False
+            if c1 or c2:
+                monitor = True
+            if not m1 or not m2:
+                cam = True
+                self.ans += 1
+                monitor = True
+            
+            return cam, monitor
+        
+        cam, mon = dfs(root)
+        if not mon: return self.ans+1
+        else:   return self.ans
+```
+
 ### Largest Rectangle in Histogram
 Issue: [problem link](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 
