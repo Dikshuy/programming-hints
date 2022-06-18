@@ -1,6 +1,6 @@
 ## Hints and implemenation of some leetcode and hackerrank problems
 
-Number of problems: **50** :cowboy_hat_face: 
+Number of problems: **51** :cowboy_hat_face: 
 
 ### Longest Increasing Path in a matrix
 Issue: Optimal way of searching using DFS(Depth First Search algorithm). [Problem link](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/)
@@ -733,6 +733,29 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
                 new_i += d[0]
                 new_j += d[1]
 ```
+
+### Prefix and Suffix Search
+Issue: Find the index of the word in the dictionary with given prefix and suffix
+
+Hint: Use the idea of hash maps
+
+**Implementation**
+```python
+# Naive Approach
+class WordFilter:
+
+    def __init__(self, words: List[str]):
+        self.words = words
+        
+
+    def f(self, prefix: str, suffix: str) -> int:
+        ans = []
+        for word in self.words:
+            if word.startswith(prefix) and word.endswith(suffix):
+                ans.append(self.words.index(word))
+        return ans[-1]
+```
+
 ### Best Time to Buy and Sell Stock with Cooldown
 Issue: How to solve with cooldown condition imposed. [problem link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
 
