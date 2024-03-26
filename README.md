@@ -1,6 +1,14 @@
-## Hints and implemenation of some leetcode and hackerrank problems
+## Directories:
+ > **algorithms**: contains the solutions to the problems of the algorithmic toolbox course
 
-Number of problems: **51** :cowboy_hat_face: 
+ > **data structures**: contains the solutions to the problems of the data structures course
+
+ > **graphs**: contains the solutions to the problems of the algorithm on graphs course
+
+all the implementation are in _python_ only. it contains the solutions of most of the problems, not all❕
+
+
+## Hints and implemenation of some leetcode and hackerrank problems
 
 ### Longest Increasing Path in a matrix
 Issue: Optimal way of searching using DFS(Depth First Search algorithm). [Problem link](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/)
